@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href=".">
+            <a href="{{ route('author.home')}}">
                 @php
                     $getSetting = App\Models\Settings::find(1);
                 @endphp
@@ -130,7 +130,7 @@
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="./" >
+                  <a class="nav-link" href="{{ route('author.home')}}" >
                     <span class="nav-link-title">
                       Home
                     </span>
