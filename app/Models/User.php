@@ -64,4 +64,12 @@ class User extends Authenticatable
             return asset('../back/dist/img/authors/images.jpg');
         }
     }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query->where('name', 'LIKE', $term);
+        });
+    }
 }

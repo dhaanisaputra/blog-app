@@ -6,12 +6,18 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Nette\Utils\Random;
 
 class Authors extends Component
 {
-
+    use WithPagination;
     public $name, $email, $username, $authorType, $direct_publisher;
+    public $searchauthor = '';
+    public $perPage = 4;
+    public $selected_author_id;
+    public $blocked = 0;
+
     public $listeners = [
         'resetForms'
     ];
@@ -20,6 +26,16 @@ class Authors extends Component
     {
         $this->name = $this->email = $this->username = $this->authorType = $this->direct_publisher = null;
         $this->resetErrorBag();
+    }
+
+    public function mount()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function addAuthor()
@@ -76,6 +92,43 @@ class Authors extends Component
         }
     }
 
+    public function editAuthor($author)
+    {
+        // dd($author);
+        $this->selected_author_id = $author['id'];
+        $this->name = $author['name'];
+        $this->email = $author['email'];
+        $this->username = $author['username'];
+        $this->authorType = $author['type'];
+        $this->direct_publisher = $author['direct_publish'];
+        $this->blocked = $author['blocked'];
+        $this->dispatch('showEditAuthorModal');
+    }
+
+    public function updateAuthor()
+    {
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $this->selected_author_id,
+            'username' => 'required|min:6|max:20|unique:users,username,' . $this->selected_author_id,
+        ]);
+
+        if ($this->selected_author_id) {
+            $author = User::find($this->selected_author_id);
+            $author->update([
+                'name' => $this->name,
+                'email' => $this->email,
+                'username' => $this->username,
+                'type' => $this->authorType,
+                'blocked' => $this->blocked,
+                'direct_publish' => $this->direct_publisher,
+            ]);
+        }
+
+        $this->showToastr('Author detail has been updated', 'success');
+        $this->dispatch('hide_edit_author_modal');
+    }
+
     public function showToastr($message, $type)
     {
         return $this->dispatch('showToastr', [
@@ -96,7 +149,8 @@ class Authors extends Component
     public function render()
     {
         return view('livewire.authors', [
-            'authors' => User::where('id', '!=', auth()->id())->get(),
+            'authors' => User::search(trim($this->searchauthor))
+                ->where('id', '!=', auth()->id())->paginate($this->perPage),
         ]);
     }
 }
