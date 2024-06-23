@@ -67,6 +67,11 @@
     <script src="./back/dist/libs/jsvectormap/dist/maps/world.js?1684106062" defer></script>
     <script src="./back/dist/libs/jsvectormap/dist/maps/world-merc.js?1684106062" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Sweet Alert -->
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script> --}}
+
+    <!-- Toastr -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="{{ asset('../back/dist/libs/ijaboCropTool/ijaboCropTool.min.js')}}"></script>

@@ -1,26 +1,51 @@
 <div>
 
+    <!-- Modal -->
+    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Author Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form wire:submit.prevent="destroyAuthor">
+                    <div class="modal-body">
+                        <h6>Are you sure want to delete author?</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <div class="page-header d-print-none mb-2">
         <div class="container-xl">
-          <div class="row g-2 align-items-center">
-            <div class="col">
-              <h2 class="page-title">
-                Authors
-              </h2>
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                {{-- @if (session('message'))
+                    <div class="alert alert-success">{{session('message')}}</div>
+                @endif --}}
+                <h2 class="page-title">
+                    Authors
+                </h2>
 
+                </div>
+                <!-- Page title actions -->
+                <div class="col-auto ms-auto d-print-none">
+                <div class="d-flex">
+                    <input type="search" class="form-control d-inline-block w-9 me-3" placeholder="Search author…" wire:model='searchauthor'>
+                    <a href="#" class="btn btn-primary" data-bs-target='#add_author_modal' data-bs-toggle='modal'>
+                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
+                    New Author
+                    </a>
+                </div>
+                </div>
             </div>
-            <!-- Page title actions -->
-            <div class="col-auto ms-auto d-print-none">
-              <div class="d-flex">
-                <input type="search" class="form-control d-inline-block w-9 me-3" placeholder="Search author…" wire:model='searchauthor'>
-                <a href="#" class="btn btn-primary" data-bs-target='#add_author_modal' data-bs-toggle='modal'>
-                  <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
-                  New Author
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
     </div>
 
@@ -40,7 +65,8 @@
                     </div>
                     <div class="d-flex">
                     <a href="#" wire:click.prevent='editAuthor({{$author}})' class="card-btn">Edit</a>
-                    <a href="#" class="card-btn">Delete</a>
+                    {{-- <a href="#" wire:click.prevent='deleteAuthor({{$author}})' class="card-btn">Delete</a> --}}
+                    <a href="#" wire:click.prevent='deleteAuthor({{$author}})' data-bs-toggle="modal" data-bs-target="#deleteModal" class="card-btn">Delete</a>
                     </div>
                 </div>
             </div>

@@ -3,11 +3,12 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Nette\Utils\Random;
+use Livewire\WithPagination;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class Authors extends Component
 {
@@ -19,7 +20,8 @@ class Authors extends Component
     public $blocked = 0;
 
     public $listeners = [
-        'resetForms'
+        'resetForms',
+        'deleteAuthorAction'
     ];
 
     public function resetForms()
@@ -127,6 +129,44 @@ class Authors extends Component
 
         $this->showToastr('Author detail has been updated', 'success');
         $this->dispatch('hide_edit_author_modal');
+    }
+
+    // public function deleteAuthor($author)
+    // {
+    //     // dd(['delete:', $author]);
+    //     $this->dispatch('deleteAuthor', [
+    //         'title' => 'Are You Sure?',
+    //         'html' => 'You want to delete this author: <br><br>' . $author['name'] . '<br>',
+    //         'id' => $author['id']
+    //     ]);
+    // }
+
+    // public function deleteAuthorAction($id)
+    // {
+    //     dd('yes delete', $id);
+    //     $author = User::find($id);
+    //     $path = '/back/dist/img/authors/';
+    //     $author_picture = $author->getAttributes()['picture'];
+
+    //     dd($author_picture);
+    // }
+
+    public function deleteAuthor($author)
+    {
+        $this->selected_author_id = $author['id'];
+    }
+
+    public function destroyAuthor()
+    {
+        $authors = User::find($this->selected_author_id);
+        $author_picture = $authors->getAttributes()['picture'];
+        $path = '/back/dist/img/authors/' . $author_picture;
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $authors->delete();
+        $this->showToastr('Author has been Deleted', 'success');
+        $this->dispatch('close-modal');
     }
 
     public function showToastr($message, $type)
