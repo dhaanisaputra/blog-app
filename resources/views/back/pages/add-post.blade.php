@@ -31,7 +31,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Post content</label>
-                        <textarea class="form-control" name="post_content" rows="6" placeholder="Content.."></textarea>
+                        <textarea class="ckeditor form-control" id="desc_post" name="post_content" rows="6" placeholder="Content.."></textarea>
                         {{-- <span class="text-danger error-text post_content_error"></span> --}}
                         <span class="text-danger">@error('post_content'){{$message}}@enderror</span>
                     </div>
@@ -83,6 +83,16 @@
 
 @endsection
 @push('scripts')
+{{-- --- ckeditor --- --}}
+<script>
+    // CKEDITOR.replace( 'desc_post' );
+    ClassicEditor
+        .create(document.querySelector('#desc_post'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+{{-- -- preview image -- --}}
 <script>
     function previewImage(event) {
         const imagePreview = document.getElementById('imagePreview');

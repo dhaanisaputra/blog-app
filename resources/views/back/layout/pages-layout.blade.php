@@ -26,6 +26,11 @@
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css">
     <link rel="stylesheet" href="/back/dist/libs/ijaboCropTool/ijaboCropTool.min.css">
+
+    {{-- --- ckeditor --- --}}
+    {{-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    {{-- <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> --}}
     @stack('stylesheets')
     @livewireStyles
     <link href="/back/dist/css/demo.min.css?1684106062" rel="stylesheet"/>

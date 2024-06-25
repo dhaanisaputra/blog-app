@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+// use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class AuthorController extends Controller
 {
@@ -108,6 +111,32 @@ class AuthorController extends Controller
             $new_filename = time() . '_' . $filename;
             $upload = Storage::disk('public')->put($path . $new_filename, (string) file_get_contents($file));
 
+            $post_thumbnail_path = $path . 'thumbnails';
+            if (!Storage::disk('public')->exists($post_thumbnail_path)) {
+                Storage::disk('public')->makeDirectory($post_thumbnail_path, 0755, true, true);
+            }
+
+            // create new manager instance with desired driver and default configuration
+            $imgManager = new ImageManager(new Driver());
+
+            // reading uploaded image for thumbnail
+            // dd($imgManager);
+            $thumbImg = $imgManager->read(storage_path('app/public/' . $path . $new_filename));
+            $thumbImg = $thumbImg->resize(200, 200);
+            $thumbImg->save(storage_path('app/public/' . $path . 'thumbnails/' . 'thumb_' . $new_filename));
+            // reading uploaded image for resized
+            $resizeImg = $imgManager->read(storage_path('app/public/' . $path . $new_filename));
+            $resizeImg = $resizeImg->resize(500, 350);
+            $resizeImg->save(storage_path('app/public/' . $path . 'thumbnails/' . 'resized_' . $new_filename));
+
+            // // create thumbnails
+            // Image::make(storage_path('app/public/' . $path . $new_filename))
+            //     ->fit(200, 200)
+            //     ->save(storage_path('app/public/' . $path . 'thumbnails/' . 'thumb_' . $new_filename));
+            // // create resize
+            // Image::make(storage_path('app/public/' . $path . $new_filename))
+            //     ->fit(500, 350)
+            //     ->save(storage_path('app/public/' . $path . 'thumbnails/' . 'resized_' . $new_filename));
             if ($upload) {
                 $post = new Post();
                 $post->author_id = auth()->id();
