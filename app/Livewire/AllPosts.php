@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\File;
 
 class AllPosts extends Component
 {
@@ -14,6 +15,7 @@ class AllPosts extends Component
     public $author = null;
     public $category = null;
     public $orderBy = null;
+    public $selected_post_id;
 
     public function mount()
     {
@@ -30,6 +32,47 @@ class AllPosts extends Component
     public function updatingAuthor()
     {
         $this->resetPage();
+    }
+    public function deletePost($id)
+    {
+        $this->selected_post_id = $id;
+    }
+
+
+    public function destroyPost()
+    {
+        $post = Post::find($this->selected_post_id);
+        $path = 'back/dist/img/posts-upload/';
+        $featured_image = $post->featured_image;
+
+        if ($featured_image != null && File::exists(public_path($path . $featured_image))) {
+            // -- delete image resized --
+            if (File::exists(public_path($path . 'thumbnails/resized_' . $featured_image))) {
+                File::delete($path . 'thumbnails/resized_' . $featured_image);
+            }
+            // -- delete image thumbnails --
+            if (File::exists(public_path($path . 'thumbnails/thumb_' . $featured_image))) {
+                File::delete($path . 'thumbnails/thumb_' . $featured_image);
+            }
+            // -- delete image posts --
+            File::delete($path . $featured_image);
+        }
+
+        $delete_post = $post->delete();
+        if ($delete_post) {
+            $this->showToastr('Post has been deleted', 'success');
+            $this->dispatch('close-modal');
+        } else {
+            $this->showToastr('Something went wrong', 'error');
+        }
+    }
+
+    public function showToastr($message, $type)
+    {
+        return $this->dispatch('showToastr', [
+            'type' => $type,
+            'message' => $message
+        ]);
     }
 
     public function render()

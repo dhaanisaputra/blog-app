@@ -1,6 +1,6 @@
 <div>
 
-    <!-- Modal -->
+    <!-- Modal Delete -->
     <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -10,9 +10,9 @@
                 </div>
                 <form wire:submit.prevent="destroyAuthor">
                     <div class="modal-body">
-                        <h6>Are you sure want to delete author?</h6>
+                        <h6 style="font-size: 20px">Are you sure want to delete author?</h6>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer mt-0">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                         <button type="submit" class="btn btn-primary">Yes</button>
                     </div>

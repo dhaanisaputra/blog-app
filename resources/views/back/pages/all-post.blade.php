@@ -15,3 +15,10 @@
 
 @endsection
 
+@push('scripts')
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#deletePostModal').modal('hide');
+    });
+</script>
+@endpush
