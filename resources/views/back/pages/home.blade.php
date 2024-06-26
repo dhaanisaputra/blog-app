@@ -2,7 +2,7 @@
 @section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Home')
 @section('content')
 
-page content here
+home page content here
 
 
 @endsection

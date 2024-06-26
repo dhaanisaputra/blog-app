@@ -72,4 +72,9 @@ class User extends Authenticatable
             $query->where('name', 'LIKE', $term);
         });
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author_id', 'id');
+    }
 }

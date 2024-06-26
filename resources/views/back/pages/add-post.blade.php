@@ -18,9 +18,8 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-
                 @if (session('message'))
-                <div class="alert alert-success">{{session('message')}}</div>
+                    <div class="alert alert-success">{{session('message')}}</div>
                 @endif
                 <div class="col-md-9">
                     <div class="mb-3">
@@ -42,10 +41,10 @@
                         <select class="form-select" name="post_category" wire:model="post_category">
                         <option value="">No Selected</option>
                         @php
-                                $getSubCategory = App\Models\SubCategory::all();
+                                $getCategory = App\Models\Category::all();
                         @endphp
-                        @foreach ($getSubCategory as $categories)
-                            <option value="{{$categories->id}}">{{$categories->subcategory_name}}</option>
+                        @foreach ($getCategory as $categories)
+                            <option value="{{$categories->id}}">{{$categories->category_name}}</option>
                         @endforeach
                         </select>
                         {{-- <span class="text-danger error-text post_category_error"></span> --}}

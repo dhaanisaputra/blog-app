@@ -136,6 +136,8 @@
                     </span>
                   </a>
                 </li>
+
+                @if (auth()->user()->type == 1)
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('author.categories')}}" >
                       <span class="nav-link-title">
@@ -143,6 +145,8 @@
                       </span>
                     </a>
                 </li>
+                @endif
+
                 @if (auth()->user()->type == 1)
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('author.authors')}}" >
@@ -152,6 +156,7 @@
                         </a>
                     </li>
                 @endif
+
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                     <span class="nav-link-title">
@@ -164,12 +169,14 @@
                         <a class="dropdown-item" href="{{route('author.posts.add-post')}}">
                           Add New
                         </a>
-                        <a class="dropdown-item" href="./cookie-banner.html">
+                        <a class="dropdown-item" href="{{route('author.posts.all-post')}}">
                           All Posts
                         </a>
                       </div>
                   </div>
                 </li>
+
+                @if (auth()->user()->type == 1)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                       <span class="nav-link-title">
@@ -191,7 +198,10 @@
                         </div>
                     </div>
                   </li>
-                <li class="nav-item active dropdown">
+                @endif
+
+                @if( auth()->user()->type == 1)
+                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                     <span class="nav-link-title">
                       Settings
@@ -206,6 +216,7 @@
                       </div>
                   </div>
                 </li>
+                @endif
               </ul>
             </div>
           </div>

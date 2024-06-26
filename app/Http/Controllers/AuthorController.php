@@ -105,29 +105,48 @@ class AuthorController extends Controller
         ]);
 
         if ($request->hasFile('featured_image')) {
-            $path = 'images/post_images/';
+            $path = 'back/dist/img/posts-upload/';
             $file = $request->file('featured_image');
             $filename = $file->getClientOriginalName();
             $new_filename = time() . '_' . $filename;
-            $upload = Storage::disk('public')->put($path . $new_filename, (string) file_get_contents($file));
+            $upload = $file->move($path, $new_filename);
 
             $post_thumbnail_path = $path . 'thumbnails';
-            if (!Storage::disk('public')->exists($post_thumbnail_path)) {
-                Storage::disk('public')->makeDirectory($post_thumbnail_path, 0755, true, true);
+            if (!File::exists(public_path($post_thumbnail_path))) {
+                File::makeDirectory($post_thumbnail_path, $mode = 0755, true, true);
             }
+            $imgManager = new ImageManager(new Driver());
+            $thumbImg = $imgManager->read($path . $new_filename);
+            $thumbImg = $thumbImg->resize(200, 200);
+            $thumbImg->save(public_path($path . 'thumbnails/' . 'thumb_' . $new_filename));
+
+            $resizeImg = $imgManager->read($path . $new_filename);
+            $resizeImg = $resizeImg->resize(500, 350);
+            $resizeImg->save(public_path($path . 'thumbnails/' . 'resized_' . $new_filename));
+
+            // $path = 'images/post_images/';
+            // $file = $request->file('featured_image');
+            // $filename = $file->getClientOriginalName();
+            // $new_filename = time() . '_' . $filename;
+            // $upload = Storage::disk('public')->put($path . $new_filename, (string) file_get_contents($file));
+
+            // $post_thumbnail_path = $path . 'thumbnails';
+            // if (!Storage::disk('public')->exists($post_thumbnail_path)) {
+            //     Storage::disk('public')->makeDirectory($post_thumbnail_path, 0755, true, true);
+            // }
 
             // create new manager instance with desired driver and default configuration
-            $imgManager = new ImageManager(new Driver());
+            // $imgManager = new ImageManager(new Driver());
 
             // reading uploaded image for thumbnail
             // dd($imgManager);
-            $thumbImg = $imgManager->read(storage_path('app/public/' . $path . $new_filename));
-            $thumbImg = $thumbImg->resize(200, 200);
-            $thumbImg->save(storage_path('app/public/' . $path . 'thumbnails/' . 'thumb_' . $new_filename));
+            // $thumbImg = $imgManager->read(storage_path('app/public/' . $path . $new_filename));
+            // $thumbImg = $thumbImg->resize(200, 200);
+            // $thumbImg->save(storage_path('app/public/' . $path . 'thumbnails/' . 'thumb_' . $new_filename));
             // reading uploaded image for resized
-            $resizeImg = $imgManager->read(storage_path('app/public/' . $path . $new_filename));
-            $resizeImg = $resizeImg->resize(500, 350);
-            $resizeImg->save(storage_path('app/public/' . $path . 'thumbnails/' . 'resized_' . $new_filename));
+            // $resizeImg = $imgManager->read(storage_path('app/public/' . $path . $new_filename));
+            // $resizeImg = $resizeImg->resize(500, 350);
+            // $resizeImg->save(storage_path('app/public/' . $path . 'thumbnails/' . 'resized_' . $new_filename));
 
             // // create thumbnails
             // Image::make(storage_path('app/public/' . $path . $new_filename))
@@ -137,24 +156,24 @@ class AuthorController extends Controller
             // Image::make(storage_path('app/public/' . $path . $new_filename))
             //     ->fit(500, 350)
             //     ->save(storage_path('app/public/' . $path . 'thumbnails/' . 'resized_' . $new_filename));
-            if ($upload) {
-                $post = new Post();
-                $post->author_id = auth()->id();
-                $post->category_id = $request->post_category;
-                $post->post_title = $request->post_title;
-                $post->post_slug = Str::slug($request->post_title);
-                $post->post_content = $request->post_content;
-                $post->featured_image = $new_filename;
-                $saved = $post->save();
+            // if ($upload) {
+            $post = new Post();
+            $post->author_id = auth()->id();
+            $post->category_id = $request->post_category;
+            $post->post_title = $request->post_title;
+            $post->post_slug = Str::slug($request->post_title);
+            $post->post_content = $request->post_content;
+            $post->featured_image = $new_filename;
+            $saved = $post->save();
 
-                if ($saved) {
-                    return redirect()->route('author.home')->with('success', "New Post created successfully");
-                } else {
-                    return redirect()->route('author.home')->with('failed', "Something went wrong");
-                }
+            if ($saved) {
+                return redirect()->route('author.posts.all-post')->with('message', "New Post created successfully");
             } else {
-                return redirect()->route('author.home')->with('failed', "Something went wrong");
+                return redirect()->route('author.posts.add-post')->with('message', "Something went wrong");
             }
+            // } else {
+            //     return redirect()->route('author.home')->with('failed', "Something went wrong");
+            // }
         }
     }
 }
