@@ -13,6 +13,7 @@ class Categories extends Component
     public $category_name;
     public $selected_category_id;
     public $updateCategoryMode = false;
+    public $categoryDelMode = false;
 
     public $subcategory_name;
     public $parent_category;
@@ -143,6 +144,11 @@ class Categories extends Component
         $this->selected_category_id = $id;
     }
 
+    public function deleteSubCategory($id)
+    {
+        $this->selected_subcategory_id = $id;
+    }
+
     public function destroyCategory()
     {
         $category = Category::where('id', $this->selected_category_id)->first();
@@ -164,6 +170,21 @@ class Categories extends Component
         }
     }
 
+    public function destroySubCategory()
+    {
+        $subcategory = SubCategory::where('id', $this->selected_subcategory_id)->first();
+        $posts = Post::where('category_id', $subcategory->id)->get()->toArray();
+        // dd('del sub cat');
+        if (!empty($posts) && count($posts) > 0) {
+            $this->showToastr('This sub category has (' . count($posts) . ') post related to it, cannot be deleted', 'error');
+            $this->dispatch('close-modal-subCat');
+        } else {
+            $subcategory->delete();
+
+            $this->showToastr('Sub Category has been deleted', 'info');
+            $this->dispatch('close-modal-subCat');
+        }
+    }
 
     public function showToastr($message, $type)
     {

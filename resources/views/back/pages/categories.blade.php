@@ -41,7 +41,12 @@
 
         window.addEventListener('close-modal', event => {
         $('#deleteCatModal').modal('hide');
-    });
+        });
+
+        window.addEventListener('close-modal-subCat', event => {
+            $('#deleteSubCatModal').modal('hide');
+        });
+
     </script>
 @endpush
 

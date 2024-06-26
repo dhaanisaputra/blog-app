@@ -20,6 +20,26 @@
         </div>
     </div>
 
+    <div wire:ignore.self class="modal fade" id="deleteSubCatModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sub Category Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form wire:submit.prevent="destroySubCategory">
+                    <div class="modal-body">
+                        <h6 style="font-size: 20px">Are you sure want to delete this sub category?</h6>
+                    </div>
+                    <div class="modal-footer mt-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="row mt-3">
         <div class="col-md-6">
             <div class="card">
@@ -107,7 +127,7 @@
                                   <td>
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-sm btn-primary" wire:click.prevent='editSubCategory({{$subcategory->id}})'>Edit</a> &nbsp;
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="#" class="btn btn-sm btn-danger"  wire:click.prevent='deleteSubCategory({{$subcategory->id}})' data-bs-toggle="modal" data-bs-target="#deleteSubCatModal">Delete</a>
                                     </div>
                                   </td>
                                 </tr>
