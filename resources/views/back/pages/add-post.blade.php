@@ -3,15 +3,15 @@
 @section('content')
 
 <div class="page-header d-print-none">
-    <div class="container-xl">
-      <div class="row g-2 align-items-center">
-        <div class="col">
-            <h2 class="page-title">
-                Add New Post
-            </h2>
+    {{-- <div class="container-xl"> --}}
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">
+                    Add New Post
+                </h2>
+            </div>
         </div>
-      </div>
-    </div>
+    {{-- </div> --}}
 </div>
 <form action="{{route('author.posts.create')}}" method="POST" id='addPostForm' enctype="multipart/form-data">
     @csrf
@@ -41,10 +41,10 @@
                         <select class="form-select" name="post_category" wire:model="post_category">
                         <option value="">No Selected</option>
                         @php
-                                $getCategory = App\Models\Category::all();
+                                $getCategory = App\Models\SubCategory::all();
                         @endphp
                         @foreach ($getCategory as $categories)
-                            <option value="{{$categories->id}}">{{$categories->category_name}}</option>
+                            <option value="{{$categories->id}}">{{$categories->subcategory_name}}</option>
                         @endforeach
                         </select>
                         {{-- <span class="text-danger error-text post_category_error"></span> --}}

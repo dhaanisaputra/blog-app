@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 
@@ -136,6 +137,33 @@ class Categories extends Component
             }
         }
     }
+
+    public function deleteCategory($id)
+    {
+        $this->selected_category_id = $id;
+    }
+
+    public function destroyCategory()
+    {
+        $category = Category::where('id', $this->selected_category_id)->first();
+        $subcategory = SubCategory::where('parent_category', $category->id)->whereHas('posts')->with('posts')->get();
+
+        if (!empty($subcategory) && count($subcategory) > 0) {
+            $totalPosts = 0;
+            foreach ($subcategory as $subcat) {
+                $totalPosts += Post::where('category_id', $subcat->id)->get()->count();
+            }
+            $this->showToastr('This category has (' . $totalPosts . ') post related to it, cannot be deleted', 'error');
+            $this->dispatch('close-modal');
+        } else {
+            SubCategory::where('parent_category', $category->id)->delete();
+            $category->delete();
+
+            $this->showToastr('Category has been deleted', 'info');
+            $this->dispatch('close-modal');
+        }
+    }
+
 
     public function showToastr($message, $type)
     {

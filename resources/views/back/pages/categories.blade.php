@@ -38,6 +38,10 @@
         $('#categories_modal, #subcategories_modal').on('hidden.bs.modal', function(e){
             Livewire.dispatch('resetModalForm');
         });
+
+        window.addEventListener('close-modal', event => {
+        $('#deleteCatModal').modal('hide');
+    });
     </script>
 @endpush
 

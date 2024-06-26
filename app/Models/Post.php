@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
     use HasFactory;
+    use Sluggable;
 
     protected $fillable = [
         'author_id',
@@ -20,9 +22,29 @@ class Post extends Model
 
     public function scopeSearch($query, $term)
     {
+        // dd('search', $query, $term);
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
             $query->where('post_title', 'LIKE', $term);
         });
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'post_slug' => [
+                'source' => 'post_title'
+            ]
+        ];
+    }
+
+    public function parentcategory()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

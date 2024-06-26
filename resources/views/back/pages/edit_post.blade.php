@@ -39,10 +39,10 @@
                         <select class="form-select" name="post_category" wire:model="post_category">
                         <option value="">No Selected</option>
                         @php
-                                $getCategory = App\Models\Category::all();
+                                $getCategory = App\Models\SubCategory::all();
                         @endphp
                         @foreach ($getCategory as $categories)
-                            <option value="{{$categories->id}}" {{ $post->category_id == $categories->id ? 'selected' : '' }}>{{$categories->category_name}}</option>
+                            <option value="{{$categories->id}}" {{ $post->category_id == $categories->id ? 'selected' : '' }}>{{$categories->subcategory_name}}</option>
                         @endforeach
                         </select>
                         <span class="text-danger">@error('post_category'){{$message}}@enderror</span>
