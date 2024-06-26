@@ -176,4 +176,101 @@ class AuthorController extends Controller
             // }
         }
     }
+
+    public function editPost(Request $request)
+    {
+        if (!request()->post_id) {
+            return abort(404);
+        } else {
+            $post = Post::find(request()->post_id);
+            $data = [
+                'post' => $post,
+                'pageTitle' => 'Edit Post',
+            ];
+            return view('back.pages.edit_post', $data);
+        }
+    }
+
+    public function updatePost(Request $request)
+    {
+        if ($request->hasFile('featured_image')) {
+            $request->validate([
+                'post_title' => 'required|unique:posts,post_title,' . $request->post_id,
+                'post_content' => 'required',
+                'post_category' => 'required|exists:categories,id',
+                'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
+            ]);
+
+            $path = 'back/dist/img/posts-upload/';
+            $file = $request->file('featured_image');
+            $filename = $file->getClientOriginalName();
+            $new_filename = time() . '_' . $filename;
+            $upload = $file->move($path, $new_filename);
+
+            $post_thumbnail_path = $path . 'thumbnails';
+            if (!File::exists(public_path($post_thumbnail_path))) {
+                File::makeDirectory($post_thumbnail_path, $mode = 0755, true, true);
+            }
+            $imgManager = new ImageManager(new Driver());
+            $thumbImg = $imgManager->read($path . $new_filename);
+            $thumbImg = $thumbImg->resize(200, 200);
+            $thumbImg->save(public_path($path . 'thumbnails/' . 'thumb_' . $new_filename));
+
+            $resizeImg = $imgManager->read($path . $new_filename);
+            $resizeImg = $resizeImg->resize(500, 350);
+            $resizeImg->save(public_path($path . 'thumbnails/' . 'resized_' . $new_filename));
+
+            $old_post_image = Post::find($request->post_id)->featured_image;
+
+            // -- delete image --
+            if ($old_post_image != null && File::exists(public_path($path . $old_post_image))) {
+                File::delete($path . $old_post_image);
+
+                // -- delete image thumbnails --
+                if (File::exists(public_path($path . 'thumbnails/thumb_' . $old_post_image))) {
+                    File::delete($path . 'thumbnails/thumb_' . $old_post_image);
+                }
+
+                // -- delete image resized --
+                if (File::exists(public_path($path . 'thumbnails/resized_' . $old_post_image))) {
+                    File::delete($path . 'thumbnails/resized_' . $old_post_image);
+                }
+            }
+
+            $post = Post::find($request->post_id);
+            $post->category_id = $request->post_category;
+            $post->post_slug = null;
+            $post->post_content = $request->post_content;
+            $post->post_title = $request->post_title;
+            $post->featured_image = $new_filename;
+            $saved = $post->save();
+
+            if ($saved) {
+                return redirect()->route('author.posts.all-post')->with('message', "Post updated successfully");
+            } else {
+                return redirect()->route('author.posts.all-post')->with('message', "Something went wrong");
+            }
+        } else {
+            $request->validate([
+                'post_title' => 'required|unique:posts,post_title,' . $request->post_id,
+                'post_content' => 'required',
+                'post_category' => 'required|exists:categories,id',
+            ]);
+
+            $post = Post::find($request->post_id);
+
+            // dd('no featured_image', $post);
+            $post->category_id = $request->post_category;
+            $post->post_slug = null;
+            $post->post_content = $request->post_content;
+            $post->post_title = $request->post_title;
+            $saved = $post->save();
+            // dd($saved);
+            if ($saved) {
+                return redirect()->route('author.posts.all-post')->with('message', "Post updated successfully");
+            } else {
+                return redirect()->route('author.posts.all-post')->with('message', "Something went wrong");
+            }
+        }
+    }
 }
