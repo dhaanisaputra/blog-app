@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/ykfb', function () {
-    return view('front.pages.ykfb');
-    // return view('welcome');
+Route::get('/', function () {
+    return view('welcome');
 });
 
 
@@ -39,3 +39,10 @@ Route::prefix('author')->name('author.')->group(function () {
         });
     });
 });
+
+Route::view('/ykfb', 'front.pages.home');
+
+Route::get('/article/{any}', [BlogController::class, 'readPost'])->name('read_post');
+Route::get('/category/{any}', [BlogController::class, 'categoryPost'])->name('category_posts');
+Route::get('/posts/tag/{any}', [BlogController::class, 'tagPost'])->name('tag_posts');
+Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts');

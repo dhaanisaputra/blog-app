@@ -23,14 +23,21 @@
     <link href="/back/dist/css/tabler-flags.min.css?1684106062" rel="stylesheet"/>
     <link href="/back/dist/css/tabler-payments.min.css?1684106062" rel="stylesheet"/>
     <link href="/back/dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet"/>
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
+    {{-- --- toastr message --- --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
+
+    {{-- --- ijaboo crop tools image ---  --}}
     <link rel="stylesheet" href="/back/dist/libs/ijaboCropTool/ijaboCropTool.min.css">
 
     {{-- --- ckeditor --- --}}
-    {{-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script> --}}
     {{-- <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> --}}
+
+    {{-- --- amsify tags --- --}}
+    <link rel="stylesheet" href="/amsify/amsify.suggestags.css">
+
     @stack('stylesheets')
     @livewireStyles
     <link href="/back/dist/css/demo.min.css?1684106062" rel="stylesheet"/>
@@ -81,9 +88,14 @@
     <script src="/back/dist/libs/ijaboCropTool/ijaboCropTool.min.js"></script>
     <!-- Tabler Core -->
     <script src="/back/dist/js/tabler.min.js?1684106062" defer></script>
+    <!-- Amsify Tags -->
+    <script src="/amsify/jquery.amsify.suggestags.js"></script>
+
     @stack('scripts')
     @livewireScripts
     <script>
+        $('input[name="post_tags"]').amsifySuggestags({tagLimit: 5});
+
         window.addEventListener('showToastr', function(event) {
             console.log(event);
             toastr.remove();

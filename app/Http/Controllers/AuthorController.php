@@ -163,6 +163,7 @@ class AuthorController extends Controller
             $post->category_id = $request->post_category;
             $post->post_title = $request->post_title;
             // $post->post_slug = Str::slug($request->post_title);
+            $post->post_tags = $request->post_tags;
             $post->post_content = $request->post_content;
             $post->featured_image = $new_filename;
             $saved = $post->save();
@@ -198,7 +199,7 @@ class AuthorController extends Controller
             $request->validate([
                 'post_title' => 'required|unique:posts,post_title,' . $request->post_id,
                 'post_content' => 'required',
-                'post_category' => 'required|exists:categories,id',
+                'post_category' => 'required|exists:sub_categories,id',
                 'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
             ]);
 
@@ -244,6 +245,7 @@ class AuthorController extends Controller
             $post->post_content = $request->post_content;
             $post->post_title = $request->post_title;
             $post->featured_image = $new_filename;
+            $post->post_tags = $request->post_tags;
             $saved = $post->save();
 
             if ($saved) {
@@ -255,18 +257,16 @@ class AuthorController extends Controller
             $request->validate([
                 'post_title' => 'required|unique:posts,post_title,' . $request->post_id,
                 'post_content' => 'required',
-                'post_category' => 'required|exists:categories,id',
+                'post_category' => 'required|exists:sub_categories,id',
             ]);
 
             $post = Post::find($request->post_id);
-
-            // dd('no featured_image', $post);
             $post->category_id = $request->post_category;
             $post->post_slug = null;
             $post->post_content = $request->post_content;
             $post->post_title = $request->post_title;
+            $post->post_tags = $request->post_tags;
             $saved = $post->save();
-            // dd($saved);
             if ($saved) {
                 return redirect()->route('author.posts.all-post')->with('message', "Post updated successfully");
             } else {

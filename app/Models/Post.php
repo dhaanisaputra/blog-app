@@ -25,7 +25,7 @@ class Post extends Model
         // dd('search', $query, $term);
         $term = "%$term%";
         $query->where(function ($query) use ($term) {
-            $query->where('post_title', 'LIKE', $term);
+            $query->where('post_title', 'like', $term);
         });
     }
 
@@ -46,5 +46,15 @@ class Post extends Model
     public function parentcategory()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'category_id', 'id');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id', 'id');
     }
 }

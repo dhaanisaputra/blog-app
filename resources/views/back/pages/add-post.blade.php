@@ -73,6 +73,10 @@
                         </div>
                     </div> --}}
                     {{-- @livewire('upload-images-component') --}}
+                    <div class="mb-3">
+                        <label for="" class="form-label">Post Tags</label>
+                        <input type="text" class="form-control" name="post_tags">
+                    </div>
                     <button type="submit" class="btn btn-primary">Save Post</button>
                 </div>
             </div>
