@@ -119,7 +119,7 @@
                                 <tr>
                                   <td>{{ $subcategory->subcategory_name }}</td>
                                   <td class="text-muted">
-                                    {{ $subcategory->parentcategory->category_name }}
+                                    {{ $subcategory->parent_category != 0 ? $subcategory->parentcategory->category_name : '-' }}
                                   </td>
                                   <td>
                                     {{ $subcategory->posts->count()}}
@@ -197,9 +197,7 @@
                     <div class="mb-3">
                         <div class="form-label">Parent Category</div>
                         <select class="form-select" wire:model='parent_category'>
-                            @if (!$updateSubCategoryMode)
-                                <option value="">No Selected</option>
-                            @endif
+                            <option value="0">-- Uncategorized --</option>
                             @php
                                 $getCategory = App\Models\Category::all();
                             @endphp

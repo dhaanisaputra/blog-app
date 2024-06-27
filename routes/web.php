@@ -4,8 +4,9 @@ use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/ykfb', function () {
+    return view('front.pages.ykfb');
+    // return view('welcome');
 });
 
 
