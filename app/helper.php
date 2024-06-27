@@ -102,3 +102,17 @@ if (!function_exists('latest_home_6posts')) {
             ->get();
     }
 }
+
+/**
+ * Display random recomended post article
+ */
+if (!function_exists('recomended_posts')) {
+    function recomended_posts()
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->limit(4)
+            ->inRandomOrder()
+            ->get();
+    }
+}
