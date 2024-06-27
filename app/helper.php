@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\Settings;
+use App\Models\SubCategory;
 use Illuminate\Support\Str;
 
 if (!function_exists('blogInfo')) {
@@ -113,6 +114,19 @@ if (!function_exists('recomended_posts')) {
             ->with('subcategory')
             ->limit(4)
             ->inRandomOrder()
+            ->get();
+    }
+}
+
+/**
+ * Post with number of posts
+ */
+if (!function_exists('categories')) {
+    function categories()
+    {
+        return SubCategory::whereHas('posts')
+            ->with('posts')
+            ->orderBy('subcategory_name', 'asc')
             ->get();
     }
 }
