@@ -31,10 +31,10 @@
 
                         <div class="dropdown-menu">
                             @php
-                                $getSubCateg = App\Models\SubCategory::where('parent_category', $category->id)->whereHas('posts')->get();
+                                $getSubCateg = App\Models\SubCategory::where('parent_category', $category->id)->whereHas('posts')->orderBy('subcategory_name','asc')->get();
                             @endphp
                             @foreach ( $getSubCateg as $subcategory )
-                                <a class="dropdown-item" href="">{{ $subcategory->subcategory_name }}</a>
+                                <a class="dropdown-item" href="{{route('category_posts', $subcategory->slug)}}">{{ $subcategory->subcategory_name }}</a>
                             @endforeach
                         </div>
                     </li>
@@ -44,7 +44,7 @@
                         $getSubCateg = App\Models\SubCategory::where('parent_category',0)->whereHas('posts')->get();
                     @endphp
                     @foreach ( $getSubCateg as $subcategory )
-                    <li class="nav-item"> <a class="nav-link" href="">{{ $subcategory->subcategory_name }}</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('category_posts', $subcategory->slug)}}">{{ $subcategory->subcategory_name }}</a>
                     </li>
                     @endforeach
 
