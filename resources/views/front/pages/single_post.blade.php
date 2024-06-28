@@ -1,12 +1,33 @@
 @extends('front.layout.page-layout')
 @section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Welcome To Yogyakarta Fingerboard Community')
+@section('meta_tags')
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+    <meta name="title" content="{{ Str::ucfirst($posts->post_title) }}" />
+    <meta name="description" content="{{ Str::ucfirst(words($posts->post_content, 120)) }}">
+    <meta name="author" content="{{ $posts->author->username }}">
+    <link rel="canonical" href="{{ route('read_post', $posts->post_slug) }}">
+    <meta property="og:title" content="{{ Str::ucfirst($posts->post_title) }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="{{ Str::ucfirst(words($posts->post_content, 120)) }}" />
+    <meta property="og:url" content="{{ route('read_post', $posts->post_slug) }}" />
+    <meta property="og:image"
+        content="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $posts->featured_image) }}" />
+    <meta name="twitter:domain" content="{{ Request::getHost() }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ Str::ucfirst($posts->post_title) }}" />
+    <meta name="twitter:description" property="og:description" itemprop="description"
+        content="{{ Str::ucfirst(words($posts->post_content, 120)) }}" />
+    <meta name="twitter:image"
+        content="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $posts->featured_image) }}" />
+@endsection
 @section('content')
 
     <div class="row">
         <div class="col-lg-8 mb-5 mb-lg-0">
             <article>
-                <img loading="lazy" decoding="async" src="{{ asset('back/dist/img/posts-upload/' . $posts->featured_image) }}"
-                    alt="Post Thumbnail" class="w-100">
+                <img loading="lazy" decoding="async"
+                    src="{{ asset('back/dist/img/posts-upload/' . $posts->featured_image) }}" alt="Post Thumbnail"
+                    class="w-100">
                 <ul class="post-meta mb-2 mt-4">
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -31,6 +52,23 @@
                     <p>{!! $posts->post_content !!}</p>
                 </div>
             </article>
+            <!-- Related Post Article Content -->
+            @if (count($related_posts) > 0)
+                <div class="widget-list mt-5">
+                    <h2 class="mb-2">Related Posts</h2>
+                    @foreach ($related_posts as $item)
+                        <a class="media align-items-center" href="{{ route('read_post', $item->post_slug) }}">
+                            <img loading="lazy" decoding="async"
+                                src="{{ asset('back/dist/img/posts-upload/thumbnails/thumb_' . $item->featured_image) }}"
+                                alt="Post Thumbnail" class="w-100">
+                            <div class="media-body ml-3">
+                                <h3 style="margin-top:-5px">{{ $item->post_title }}</h3>
+                                <p class="mb-0 small">{!! Str::ucfirst(words($item->post_content, 25)) !!}</p>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            @endif
             <div class="mt-5">
 
             </div>
@@ -53,58 +91,21 @@
                     </div>
                     <div class="col-lg-12 col-md-6">
                         <div class="widget">
-                            <h2 class="section-title mb-3">Recommended</h2>
+                            <h2 class="section-title mb-3">Latest Posts</h2>
                             <div class="widget-body">
                                 <div class="widget-list">
-                                    <article class="card mb-4">
-                                        <div class="card-image">
-                                            <div class="post-info"> <span class="text-uppercase">1 minutes read</span>
-                                            </div>
-                                            <img loading="lazy" decoding="async" src="/front/images/post/post-9.jpg"
+                                    @foreach (latest_sidebar_posts($posts->id) as $item)
+                                        <a class="media align-items-center"
+                                            href="{{ route('read_post', $item->post_slug) }}">
+                                            <img loading="lazy" decoding="async"
+                                                src="{{ asset('back/dist/img/posts-upload/thumbnails/thumb_' . $item->featured_image) }}"
                                                 alt="Post Thumbnail" class="w-100">
-                                        </div>
-                                        <div class="card-body px-0 pb-1">
-                                            <h3><a class="post-title post-title-sm" href="article.html">Portugal and France
-                                                    Now
-                                                    Allow Unvaccinated Tourists</a></h3>
-                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                                sed do eiusmod tempor …</p>
-                                            <div class="content"> <a class="read-more-btn" href="article.html">Read Full
-                                                    Article</a>
+                                            <div class="media-body ml-3">
+                                                <h3 style="margin-top:-5px">{{ $item->post_title }}</h3>
+                                                <p class="mb-0 small">{!! Str::ucfirst(words($item->post_content, 10)) !!}</p>
                                             </div>
-                                        </div>
-                                    </article>
-                                    <a class="media align-items-center" href="article.html">
-                                        <img loading="lazy" decoding="async" src="/front/images/post/post-2.jpg"
-                                            alt="Post Thumbnail" class="w-100">
-                                        <div class="media-body ml-3">
-                                            <h3 style="margin-top:-5px">These Are Making It Easier To Visit</h3>
-                                            <p class="mb-0 small">Heading Here is example of hedings. You can use …</p>
-                                        </div>
-                                    </a>
-                                    <a class="media align-items-center" href="article.html"> <span
-                                            class="image-fallback image-fallback-xs">No Image Specified</span>
-                                        <div class="media-body ml-3">
-                                            <h3 style="margin-top:-5px">No Image specified</h3>
-                                            <p class="mb-0 small">Lorem ipsum dolor sit amet, consectetur adipiscing …</p>
-                                        </div>
-                                    </a>
-                                    <a class="media align-items-center" href="article.html">
-                                        <img loading="lazy" decoding="async" src="/front/images/post/post-5.jpg"
-                                            alt="Post Thumbnail" class="w-100">
-                                        <div class="media-body ml-3">
-                                            <h3 style="margin-top:-5px">Perfect For Fashion</h3>
-                                            <p class="mb-0 small">Lorem ipsum dolor sit amet, consectetur adipiscing …</p>
-                                        </div>
-                                    </a>
-                                    <a class="media align-items-center" href="article.html">
-                                        <img loading="lazy" decoding="async" src="/front/images/post/post-9.jpg"
-                                            alt="Post Thumbnail" class="w-100">
-                                        <div class="media-body ml-3">
-                                            <h3 style="margin-top:-5px">Record Utra Smooth Video</h3>
-                                            <p class="mb-0 small">Lorem ipsum dolor sit amet, consectetur adipiscing …</p>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

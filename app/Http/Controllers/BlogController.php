@@ -72,9 +72,22 @@ class BlogController extends Controller
                 ->with('subcategory')
                 ->with('author')
                 ->first();
+
+            $post_tags = explode(',', $post->post_tags);
+            $related_post = Post::where('id', '!=', $post->id)
+                ->where(function ($query) use ($post_tags, $post) {
+                    foreach ($post_tags as $item) {
+                        $query->orWhere('post_tags', 'like', "$$item$");
+                    }
+                })
+                ->inRandomOrder()
+                ->take(3)
+                ->get();
+
             $data = [
                 'pageTitle' => Str::ucfirst($post->post_title),
                 'posts' => $post,
+                'related_posts' => $related_post
             ];
 
             return view('front.pages.single_post', $data);

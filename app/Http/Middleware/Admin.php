@@ -16,10 +16,15 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        if (Auth::check() && Auth::user()->type == 1) {
-            return $next($request);
+        // $user = Auth::user();
+        // if (Auth::check() && Auth::user()->type == 1) {
+        //     return $next($request);
+        // }
+        // abort('403', 'Only Admin');
+
+        if (auth()->user()->type != 1) {
+            abort(403, 'Access Denied. Only Admin allowed this page');
         }
-        abort('403', 'Only Admin');
+        return $next($request);
     }
 }
