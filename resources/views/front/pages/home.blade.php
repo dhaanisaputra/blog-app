@@ -96,7 +96,7 @@
             <div class="widget-blocks">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="widget">
+                        {{-- <div class="widget">
                             <div class="widget-body">
                                 <img loading="lazy" decoding="async" src="/front/images/author.jpg" alt="About Me"
                                     class="w-100 author-thumb-sm d-block">
@@ -106,7 +106,7 @@
                                     href="about.html" class="btn btn-sm btn-outline-primary">Know
                                     More</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     @if (recomended_posts())
                         <div class="col-lg-12 col-md-6">
@@ -132,18 +132,8 @@
                         </div>
                     @endif
 
-                    @if (categories())
-                        <div class="col-lg-12 col-md-6">
-                            <div class="widget">
-                                <h2 class="section-title mb-3">Categories</h2>
-                                <div class="widget-body">
-                                    <ul class="widget-list">
-                                        @include('front.layout.inc.categories_list')
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                    {{-- component categort list --}}
+                    <x-categories-list />
                 </div>
             </div>
         </div>

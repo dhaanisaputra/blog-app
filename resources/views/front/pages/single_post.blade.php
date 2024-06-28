@@ -51,6 +51,20 @@
                     <!-- Article Content -->
                     <p>{!! $posts->post_content !!}</p>
                 </div>
+
+                @if ($posts->post_tags)
+                    @php
+                        $tagsStr = $posts->post_tags;
+                        $tagsArray = explode(',', $tagsStr);
+                    @endphp
+                    <div class="tags-container mt-4">
+                        <ul class="post-meta">
+                            @foreach ($tagsArray as $tag)
+                                <li><a href="{{ route('tag_posts', $tag) }}">#{{ $tag }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </article>
             <!-- Related Post Article Content -->
             @if (count($related_posts) > 0)
@@ -77,7 +91,7 @@
             <div class="widget-blocks">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="widget">
+                        {{-- <div class="widget">
                             <div class="widget-body">
                                 <img loading="lazy" decoding="async" src="/front/images/author.jpg" alt="About Me"
                                     class="w-100 author-thumb-sm d-block">
@@ -87,7 +101,7 @@
                                     href="about.html" class="btn btn-sm btn-outline-primary">Know
                                     More</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-lg-12 col-md-6">
                         <div class="widget">
@@ -110,16 +124,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-6">
-                        <div class="widget">
-                            <h2 class="section-title mb-3">Categories</h2>
-                            <div class="widget-body">
-                                <ul class="widget-list">
-                                    @include('front.layout.inc.categories_list')
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+
+                    {{-- component categort list --}}
+                    <x-categories-list />
                 </div>
             </div>
         </div>
