@@ -3,52 +3,38 @@
 @section('content')
 
     <div class="row">
-        <div class="col-12">
-            <h1 class="mb-4 border-bottom border-primary d-inline-block">{{ $category->subcategory_name }}</h1>
-        </div>
         <div class="col-lg-8 mb-5 mb-lg-0">
-            <div class="row">
-                @forelse ($posts as $item)
-                    <div class="col-md-6 mb-4">
-                        <article class="card article-card article-card-sm h-100">
-                            <a href="{{ route('read_post', $item->post_slug) }}">
-                                <div class="card-image">
-                                    <div class="post-info"> <span
-                                            class="text-uppercase">{{ date_formatter($item->created_at) }}</span>
-                                        <span
-                                            class="text-uppercase">{{ readDuration($item->post_title, $item->post_content) }}
-                                            @choice('min|mins', readDuration($item->post_title, $item->post_content)) read</span>
-                                    </div>
-                                    <img loading="lazy" decoding="async"
-                                        src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
-                                        alt="Post Thumbnail" class="w-100" width="420" height="280">
-                                </div>
-                            </a>
-                            <div class="card-body px-0 pb-0">
-                                <h2><a class="post-title"
-                                        href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
-                                <p class="card-text">{!! Str::ucfirst(words($item->post_content, 12)) !!}</p>
-                                <div class="content"> <a class="read-more-btn"
-                                        href="{{ route('read_post', $item->post_slug) }}">Read Full
-                                        Article</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                @empty
-                    <span class="text-danger">No Posts found in this category.</span>
-                @endforelse
-            </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Pagination -->
-                        {{ $posts->appends(request()->input())->links('custom_pagination') }}
-                    </div>
+            <article>
+                <img loading="lazy" decoding="async" src="{{ asset('back/dist/img/posts-upload/' . $posts->featured_image) }}"
+                    alt="Post Thumbnail" class="w-100">
+                <ul class="post-meta mb-2 mt-4">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            style="margin-right:5px;margin-top:-4px" class="text-dark" viewBox="0 0 16 16">
+                            <path d="M5.5 10.5A.5.5 0 0 1 6 10h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"></path>
+                            <path
+                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z">
+                            </path>
+                            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z">
+                            </path>
+                        </svg> <span>{{ date_formatter($posts->created_at) }}</span>
+                    </li>
+                </ul>
+                <h1 class="my-3">{{ $posts->post_title }}</h1>
+                <ul class="post-meta mb-4">
+                    <li> <a
+                            href="{{ route('category_posts', $posts->subcategory->slug) }}">{{ $posts->subcategory->subcategory_name }}</a>
+                    </li>
+                </ul>
+                <div class="content text-left">
+                    <!-- Article Content -->
+                    <p>{!! $posts->post_content !!}</p>
                 </div>
+            </article>
+            <div class="mt-5">
+
             </div>
         </div>
-
         <div class="col-lg-4">
             <div class="widget-blocks">
                 <div class="row">
@@ -78,8 +64,8 @@
                                                 alt="Post Thumbnail" class="w-100">
                                         </div>
                                         <div class="card-body px-0 pb-1">
-                                            <h3><a class="post-title post-title-sm" href="article.html">Portugal and
-                                                    France Now
+                                            <h3><a class="post-title post-title-sm" href="article.html">Portugal and France
+                                                    Now
                                                     Allow Unvaccinated Tourists</a></h3>
                                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                                 sed do eiusmod tempor …</p>
@@ -123,21 +109,18 @@
                             </div>
                         </div>
                     </div>
-                    @if (categories())
-                        <div class="col-lg-12 col-md-6">
-                            <div class="widget">
-                                <h2 class="section-title mb-3">Categories</h2>
-                                <div class="widget-body">
-                                    <ul class="widget-list">
-                                        @include('front.layout.inc.categories_list')
-                                    </ul>
-                                </div>
+                    <div class="col-lg-12 col-md-6">
+                        <div class="widget">
+                            <h2 class="section-title mb-3">Categories</h2>
+                            <div class="widget-body">
+                                <ul class="widget-list">
+                                    @include('front.layout.inc.categories_list')
+                                </ul>
                             </div>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
