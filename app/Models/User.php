@@ -67,9 +67,9 @@ class User extends Authenticatable
 
     public function scopeSearch($query, $term)
     {
-        $term = "%$term%";
+        // $term = "%$term%";
         $query->where(function ($query) use ($term) {
-            $query->where('name', 'LIKE', $term);
+            $query->where('name', 'LIKE', '%' . $term . '%');
         });
     }
 

@@ -3,9 +3,9 @@
 @section('content')
 
     <div class="row">
-        <div class="col-12">
+        {{-- <div class="col-12">
             <h1 class="mb-4 border-bottom border-primary d-inline-block">{{ $pageTitle }}</h1>
-        </div>
+        </div> --}}
         <div class="col-lg-8 mb-5 mb-lg-0">
             <div class="row">
                 @forelse ($posts as $item)

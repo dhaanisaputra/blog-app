@@ -14,10 +14,12 @@ class Authors extends Component
 {
     use WithPagination;
     public $name, $email, $username, $authorType, $direct_publisher;
-    public $searchauthor = '';
+    public $search = '';
     public $perPage = 4;
     public $selected_author_id;
     public $blocked = 0;
+
+    protected $queryString = ['search'];
 
     public $listeners = [
         'resetForms',
@@ -189,7 +191,7 @@ class Authors extends Component
     public function render()
     {
         return view('livewire.authors', [
-            'authors' => User::search(trim($this->searchauthor))
+            'authors' => User::search(trim($this->search))
                 ->where('id', '!=', auth()->id())->paginate($this->perPage),
         ]);
     }

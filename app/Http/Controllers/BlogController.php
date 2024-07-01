@@ -42,8 +42,8 @@ class BlogController extends Controller
 
             $posts->where(function ($q) use ($searchValues) {
                 foreach ($searchValues as $value) {
-                    $q->orWhere('post_title', 'LIKE', "%($value)%");
-                    $q->orWhere('post_tags', 'LIKE', "%($value)%");
+                    $q->orWhere('post_title', 'LIKE', '%' . $value . '%');
+                    $q->orWhere('post_tags', 'LIKE', '%' . $value . '%');
                 }
             });
 
@@ -51,11 +51,11 @@ class BlogController extends Controller
                 ->with('author')
                 ->orderBy('created_at', 'desc')
                 ->paginate(6);
+
             $data = [
                 'pageTitle' => 'Search for :: ' . $request->query('query'),
                 'posts' => $posts
             ];
-            // dd('ini', $data);
 
             return view('front.pages.search_posts', $data);
         } else {
