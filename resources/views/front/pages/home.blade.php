@@ -22,7 +22,7 @@
 
     <div class="row no-gutters-lg">
         <div class="col-12">
-            <h2 class="section-title">Latest Articles</h2>
+            <h2 class="section-title">Artikel Terbaru</h2>
         </div>
         <div class="col-lg-8 mb-5 mb-lg-0">
             <div class="row">
@@ -49,8 +49,8 @@
                                 </h2>
                                 <p class="card-text">{!! Str::ucfirst(words(single_latest_post()->post_content, 35)) !!}</p>
                                 <div class="content"> <a class="read-more-btn"
-                                        href="{{ route('read_post', single_latest_post()->post_slug) }}">Read Full
-                                        Article</a>
+                                        href="{{ route('read_post', single_latest_post()->post_slug) }}">Baca
+                                        Selengkapnya</a>
                                 </div>
                             </div>
                         </article>
@@ -83,7 +83,7 @@
                                         href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
                                 <p class="card-text">{!! Str::ucfirst(words($item->post_content, 35)) !!}</p>
                                 <div class="content"> <a class="read-more-btn"
-                                        href="{{ route('read_post', $item->post_slug) }}">Read Full Article</a>
+                                        href="{{ route('read_post', $item->post_slug) }}">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </article>
@@ -111,7 +111,7 @@
                     @if (recomended_posts())
                         <div class="col-lg-12 col-md-6">
                             <div class="widget">
-                                <h2 class="section-title mb-3">Recommended</h2>
+                                <h2 class="section-title mb-3">Rekomendasi</h2>
                                 <div class="widget-body">
                                     <div class="widget-list">
                                         @foreach (recomended_posts() as $item)

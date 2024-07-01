@@ -17,7 +17,7 @@
             </form>
             <div class="collapse navbar-collapse text-center order-lg-2 order-4" id="navigation">
                 <ul class="navbar-nav mx-auto mt-3 mt-lg-0">
-                    <li class="nav-item"> <a class="nav-link" href="about.html">About Me</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('about-me') }}">Tentang Kami</a>
                     </li>
 
                     @php

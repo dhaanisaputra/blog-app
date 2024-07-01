@@ -56,3 +56,5 @@ Route::get('/article/{any}', [BlogController::class, 'readPost'])->name('read_po
 Route::get('/category/{any}', [BlogController::class, 'categoryPost'])->name('category_posts');
 Route::get('/posts/tag/{any}', [BlogController::class, 'tagPost'])->name('tag_posts');
 Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts');
+
+Route::view('/about-me', 'front.pages.aboutme')->name('about-me');

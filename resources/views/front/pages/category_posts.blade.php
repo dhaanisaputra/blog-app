@@ -29,8 +29,7 @@
                                         href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
                                 <p class="card-text">{!! Str::ucfirst(words($item->post_content, 12)) !!}</p>
                                 <div class="content"> <a class="read-more-btn"
-                                        href="{{ route('read_post', $item->post_slug) }}">Read Full
-                                        Article</a>
+                                        href="{{ route('read_post', $item->post_slug) }}">Baca Selengkapnya</a>
                                 </div>
                             </div>
                         </article>
