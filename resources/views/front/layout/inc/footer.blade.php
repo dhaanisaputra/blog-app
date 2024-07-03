@@ -23,7 +23,7 @@
                         <label class="" style="color: white">Ikuti Sosial Media Kami</label>
                         <div class="flex justify-center space-x-6">
                             @foreach ($getSocmed as $item)
-                                <a class="text-red-500 hover:text-opacity-75" href="" target="_blank"
+                                <a class="text-red-500 hover:text-opacity-75" href="" target=""
                                     rel="noopener noreferrer" aria-label="Youtube" style="padding-right: 8px">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -82,7 +82,7 @@
                                     </svg> --}}
                                 </a>
 
-                                <a class="text-blue-600 hover:text-opacity-75" href="" target="_blank"
+                                <a class="text-blue-600 hover:text-opacity-75" href="" target=""
                                     rel="noopener noreferrer" aria-label="Facebook" style="padding-right: 8px">
                                     <svg class="icon icon-tabler icons-tabler-outline icon-tabler-brand-facebook"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"

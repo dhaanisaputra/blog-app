@@ -81,7 +81,7 @@
         $(document).ready(function() {
             // Show or hide the button based on scroll position
             $(window).scroll(function() {
-                if ($(this).scrollTop() > 100) {
+                if ($(this).scrollTop() > 150) {
                     $('#backToTop').fadeIn();
                 } else {
                     $('#backToTop').fadeOut();

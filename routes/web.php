@@ -58,3 +58,4 @@ Route::get('/posts/tag/{any}', [BlogController::class, 'tagPost'])->name('tag_po
 Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts');
 
 Route::view('/about-me', 'front.pages.aboutme')->name('about-me');
+Route::view('/community', 'front.pages.community')->name('community');

@@ -56,7 +56,7 @@
                         </li>
                     @endforeach
 
-                    <li class="nav-item"> <a class="nav-link" href="">Komunitas</a>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('community') }}">Komunitas</a>
                     </li>
                 </ul>
             </div>
