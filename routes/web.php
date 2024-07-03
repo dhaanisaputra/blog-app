@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommunityController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,6 +47,12 @@ Route::prefix('author')->name('author.')->group(function () {
             Route::view('/all', 'back.pages.all-post')->name('all-post');
             Route::get('/edit-post', [AuthorController::class, 'editPost'])->name('edit-post');
             Route::post('/update-post', [AuthorController::class, 'updatePost'])->name('update-post');
+
+            Route::view('/add-community', 'back.pages.add-community')->name('add-community');
+            Route::post('/create-community', [CommunityController::class, 'createCommunity'])->name('create-community');
+            Route::view('/all-community', 'back.pages.all-community')->name('all-community');
+            Route::get('/edit-community', [CommunityController::class, 'editCommunity'])->name('edit-community');
+            Route::post('/update-community', [CommunityController::class, 'updateCommunity'])->name('update-community');
         });
     });
 });

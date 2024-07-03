@@ -232,6 +232,26 @@
                                 </div>
                         </li>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside" role="button" aria-expanded="false">
+                                <span class="nav-link-title">
+                                    Community
+                                </span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-menu-columns">
+                                    <div class="dropdown-menu-column">
+                                        <a class="dropdown-item" href="{{ route('author.posts.add-community') }}">
+                                            Add Community
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('author.posts.all-community') }}">
+                                            All Community
+                                        </a>
+                                    </div>
+                                </div>
+                        </li>
+
                         {{-- @if (auth()->user()->type == 1)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
