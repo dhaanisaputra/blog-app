@@ -55,4 +55,95 @@ class CommunityController extends Controller
             }
         }
     }
+
+    public function editCommunity(Request $request)
+    {
+        if (!request()->community_id) {
+            return abort(404);
+        } else {
+            $community = Community::find(request()->community_id);
+            $data = [
+                'post' => $community,
+                'pageTitle' => 'Edit Post',
+            ];
+            return view('back.pages.edit_communtity', $data);
+        }
+    }
+
+    public function updateCommunity(Request $request)
+    {
+        if ($request->hasFile('featured_image')) {
+            $request->validate([
+                'communities_title' => 'required|unique:communities,communities_title,' . $request->community_id,
+                'post_content' => 'required',
+                'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
+                'url_social_media' => 'nullable|url',
+            ]);
+
+            $path = 'back/dist/img/community-upload/';
+            $file = $request->file('featured_image');
+            $filename = $file->getClientOriginalName();
+            $new_filename = time() . '_' . $filename;
+            $upload = $file->move($path, $new_filename);
+
+            $community_thumbnail_path = $path . 'thumbnails';
+            if (!File::exists(public_path($community_thumbnail_path))) {
+                File::makeDirectory($community_thumbnail_path, $mode = 0755, true, true);
+            }
+            $imgManager = new ImageManager(new Driver());
+            $thumbImg = $imgManager->read($path . $new_filename);
+            $thumbImg = $thumbImg->resize(200, 200);
+            $thumbImg->save(public_path($path . 'thumbnails/' . 'thumb_' . $new_filename));
+
+            $resizeImg = $imgManager->read($path . $new_filename);
+            $resizeImg = $resizeImg->resize(500, 350);
+            $resizeImg->save(public_path($path . 'thumbnails/' . 'resized_' . $new_filename));
+
+            $old_post_image = Community::find($request->community_id)->featured_image;
+
+            // -- delete image --
+            if ($old_post_image != null && File::exists(public_path($path . $old_post_image))) {
+                File::delete($path . $old_post_image);
+
+                // -- delete image thumbnails --
+                if (File::exists(public_path($path . 'thumbnails/thumb_' . $old_post_image))) {
+                    File::delete($path . 'thumbnails/thumb_' . $old_post_image);
+                }
+
+                // -- delete image resized --
+                if (File::exists(public_path($path . 'thumbnails/resized_' . $old_post_image))) {
+                    File::delete($path . 'thumbnails/resized_' . $old_post_image);
+                }
+            }
+
+            $communityPost = Community::find($request->community_id);
+            $communityPost->post_slug = null;
+            $communityPost->post_content = $request->post_content;
+            $communityPost->communities_title = $request->communities_title;
+            $communityPost->featured_image = $new_filename;
+            $saved = $communityPost->save();
+
+            if ($saved) {
+                return redirect()->route('author.posts.all-community')->with('message', "Community updated successfully");
+            } else {
+                return redirect()->route('author.posts.all-community')->with('message', "Something went wrong");
+            }
+        } else {
+            $request->validate([
+                'communities_title' => 'required|unique:communities,communities_title,' . $request->community_id,
+                'post_content' => 'required',
+            ]);
+
+            $post = Community::find($request->community_id);
+            $post->post_slug = null;
+            $post->post_content = $request->post_content;
+            $post->communities_title = $request->communities_title;
+            $saved = $post->save();
+            if ($saved) {
+                return redirect()->route('author.posts.all-community')->with('message', "Community updated successfully");
+            } else {
+                return redirect()->route('author.posts.all-community')->with('message', "Something went wrong");
+            }
+        }
+    }
 }

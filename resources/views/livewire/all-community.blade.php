@@ -1,16 +1,16 @@
 <div>
     <!-- Modal Delete-->
-    <div wire:ignore.self class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div wire:ignore.self class="modal fade" id="deleteCommunityModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Posts Delete</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Community Delete</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form wire:submit.prevent="destroyPost">
+                <form wire:submit.prevent="destroyCommunity">
                     <div class="modal-body">
-                        <h6 style="font-size: 20px">Are you sure want to delete this post?</h6>
+                        <h6 style="font-size: 20px">Are you sure want to delete this communitiy?</h6>
                     </div>
                     <div class="modal-footer mt-0">
                         <button type="button" class="btn" data-bs-dismiss="modal">No</button>
@@ -37,7 +37,7 @@
                 <select name="" class="form-select" wire:model.live='author'>
                     <option value="">-- No Selected --</option>
                     @php
-                        $getAuthor = App\Models\User::whereHas('posts')->get();
+                        $getAuthor = App\Models\User::whereHas('communitiesposts')->get();
                     @endphp
                     @foreach ($getAuthor as $author)
                         <option value="{{ $author->id }}">{{ $author->name }}</option>
@@ -78,12 +78,20 @@
                                     {!! Str::ucfirst(words($community->url_social_media, 10)) !!}
                                 </td>
                                 <td class="text-muted">
-                                    User
+                                    @php
+                                        $getAuthor = App\Models\User::whereHas('communitiesposts')->get();
+                                    @endphp
+                                    @foreach ($getAuthor as $author)
+                                        <option value="{{ $author->id }}">{{ $author->name }}</option>
+                                    @endforeach
                                 </td>
                                 <td>
                                     <div class="btn-list flex-nowrap">
-                                        <a href="#">Edit</a> &nbsp;
-                                        <a href="#">Delete</a>
+                                        <a
+                                            href="{{ route('author.posts.edit-community', ['community_id' => $community->id]) }}">Edit</a>
+                                        &nbsp;
+                                        <a href="" wire:click.prevent='deleteCommunity({{ $community->id }})'
+                                            data-bs-toggle="modal" data-bs-target="#deleteCommunityModal">Delete</a>
                                     </div>
                                 </td>
                             </tr>

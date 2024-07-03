@@ -18,7 +18,7 @@
 @push('scripts')
     <script>
         window.addEventListener('close-modal', event => {
-            $('#deletePostModal').modal('hide');
+            $('#deleteCommunityModal').modal('hide');
         });
     </script>
 @endpush
