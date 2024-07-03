@@ -120,6 +120,7 @@ class CommunityController extends Controller
             $communityPost->post_slug = null;
             $communityPost->post_content = $request->post_content;
             $communityPost->communities_title = $request->communities_title;
+            $communityPost->url_social_media = $request->url_social_media;
             $communityPost->featured_image = $new_filename;
             $saved = $communityPost->save();
 
@@ -132,12 +133,14 @@ class CommunityController extends Controller
             $request->validate([
                 'communities_title' => 'required|unique:communities,communities_title,' . $request->community_id,
                 'post_content' => 'required',
+                'url_social_media' => 'nullable|url',
             ]);
 
             $post = Community::find($request->community_id);
             $post->post_slug = null;
             $post->post_content = $request->post_content;
             $post->communities_title = $request->communities_title;
+            $post->url_social_media = $request->url_social_media;
             $saved = $post->save();
             if ($saved) {
                 return redirect()->route('author.posts.all-community')->with('message', "Community updated successfully");

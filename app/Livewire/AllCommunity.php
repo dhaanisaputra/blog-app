@@ -73,7 +73,7 @@ class AllCommunity extends Component
                     $query->where('author_id', $this->author);
                 })
                 ->when($this->orderBy, function ($query) {
-                    $query->orderBy('id', $this->orderBy);
+                    $query->orderBy('communities_title', $this->orderBy);
                 })
                 ->paginate($this->perPage)
         ]);
