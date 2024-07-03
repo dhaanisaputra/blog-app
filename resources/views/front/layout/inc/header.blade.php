@@ -56,7 +56,7 @@
                         </li>
                     @endforeach
 
-                    <li class="nav-item"> <a class="nav-link" href="contact.html">Contact</a>
+                    <li class="nav-item"> <a class="nav-link" href="">Komunitas</a>
                     </li>
                 </ul>
             </div>

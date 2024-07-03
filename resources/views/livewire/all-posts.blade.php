@@ -13,8 +13,8 @@
                         <h6 style="font-size: 20px">Are you sure want to delete this post?</h6>
                     </div>
                     <div class="modal-footer mt-0">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn" data-bs-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-danger">Yes</button>
                     </div>
                 </form>
             </div>
