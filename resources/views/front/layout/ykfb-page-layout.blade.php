@@ -131,7 +131,7 @@
             </div>
         </section> <!-- End Post Grid Section -->
 
-        <!-- ======= Culture Category Section ======= -->
+        {{-- <!-- ======= Culture Category Section ======= -->
         <section class="category-section">
             <div class="container" data-aos="fade-up">
 
@@ -255,9 +255,10 @@
                     </div>
                 </div>
             </div>
-        </section><!-- End Culture Category Section -->
+        </section>
+        <!-- End Culture Category Section --> --}}
 
-        <!-- ======= Business Category Section ======= -->
+        {{-- <!-- ======= Business Category Section ======= -->
         <section class="category-section">
             <div class="container" data-aos="fade-up">
 
@@ -380,9 +381,10 @@
                     </div>
                 </div>
             </div>
-        </section><!-- End Business Category Section -->
+        </section>
+        <!-- End Business Category Section --> --}}
 
-        <!-- ======= Lifestyle Category Section ======= -->
+        {{-- <!-- ======= Lifestyle Category Section ======= -->
         <section class="category-section">
             <div class="container" data-aos="fade-up">
 
@@ -540,7 +542,8 @@
 
                 </div> <!-- End .row -->
             </div>
-        </section><!-- End Lifestyle Category Section -->
+        </section>
+        <!-- End Lifestyle Category Section --> --}}
 
     </main><!-- End #main -->
 

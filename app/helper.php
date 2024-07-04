@@ -176,3 +176,33 @@ if (!function_exists('latest_home_of_posts')) {
             ->get();
     }
 }
+
+/**
+ * Display random recomended post article  by param
+ */
+if (!function_exists('recomended_of_posts')) {
+    function recomended_of_posts($limit)
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->limit($limit)
+            ->inRandomOrder()
+            ->get();
+    }
+}
+
+/**
+ * Display Home 6 latest post article by category
+ */
+if (!function_exists('latest_home_6_posts')) {
+    function latest_home_6_posts($category)
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->where('category_id', $category)
+            ->skip(1)
+            ->limit(6)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
