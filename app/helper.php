@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\Settings;
 use App\Models\SubCategory;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Str;
 
 if (!function_exists('blogInfo')) {
@@ -139,6 +140,37 @@ if (!function_exists('latest_sidebar_posts')) {
     function latest_sidebar_posts($except = null, $limit = 3)
     {
         return Post::where('id', '!=', $except)
+            ->limit($limit)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
+
+/**
+ * Display Home 4 latest post article
+ */
+if (!function_exists('latest_home_4posts')) {
+    function latest_home_4posts()
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->skip(1)
+            ->limit(4)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
+
+
+/**
+ * Display Home latest post article by param
+ */
+if (!function_exists('latest_home_of_posts')) {
+    function latest_home_of_posts($limit)
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->skip(1)
             ->limit($limit)
             ->orderBy('created_at', 'desc')
             ->get();

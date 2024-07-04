@@ -66,7 +66,7 @@ class CommunityController extends Controller
                 'post' => $community,
                 'pageTitle' => 'Edit Post',
             ];
-            return view('back.pages.edit_communtity', $data);
+            return view('back.pages.edit_community', $data);
         }
     }
 
