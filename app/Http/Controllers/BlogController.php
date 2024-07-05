@@ -28,7 +28,7 @@ class BlogController extends Controller
                     'posts' => $posts
                 ];
 
-                return view('front.pages.category_posts', $data);
+                return view('front.pages.ykfb-category_posts', $data);
             }
         }
     }
@@ -57,7 +57,7 @@ class BlogController extends Controller
                 'posts' => $posts
             ];
 
-            return view('front.pages.search_posts', $data);
+            return view('front.pages.ykfb-search_posts', $data);
         } else {
             return abort(404);
         }
@@ -90,7 +90,8 @@ class BlogController extends Controller
                 'related_posts' => $related_post
             ];
 
-            return view('front.pages.single_post', $data);
+            // return view('front.pages.single_post', $data);
+            return view('front.pages.ykfb-single_post', $data);
         }
     }
 

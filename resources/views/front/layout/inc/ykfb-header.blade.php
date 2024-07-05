@@ -52,9 +52,10 @@
 
             <!-- ======= Search Form ======= -->
             <div class="search-form-wrap js-search-form-wrap">
-                <form action="search-result.html" class="search-form">
+                <form action="{{ route('search_posts') }}" class="search-form">
                     <span class="icon bi-search"></span>
-                    <input type="text" placeholder="Search" class="form-control">
+                    <input id="search-query" name="query" value="{{ Request('query') }}" type="search"
+                        placeholder="Search" class="form-control">
                     <button class="btn js-search-close"><span class="bi-x"></span></button>
                 </form>
             </div><!-- End Search Form -->

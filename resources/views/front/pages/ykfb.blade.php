@@ -19,100 +19,175 @@
     <meta name="twitter:image" content="{{ blogInfo()->blog_logo }}" />
 @endsection
 @section('content-ykfb')
-
-    <div class="row g-5">
-        <div class="col-lg-4">
-            @if (single_latest_post())
-                <div class="post-entry-1 lg">
-                    <a href="{{ route('read_post', single_latest_post()->post_slug) }}">
-                        <img src="{{ asset('back/dist/img/posts-upload/' . single_latest_post()->featured_image) }}"
-                            alt="Post Thumbnail" class="img-fluid"></a>
-                    <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
-                        <span>{{ date_formatter(single_latest_post()->created_at) }}</span>
-                    </div>
-                    <h2><a
-                            href="{{ route('read_post', single_latest_post()->post_slug) }}">{{ single_latest_post()->post_title }}</a>
-                    </h2>
-                    <p class="mb-4 d-block">{!! Str::ucfirst(words(single_latest_post()->post_content, 50)) !!}</p>
-                    <div class="content"> <a class="read-more-btn"
-                            href="{{ route('read_post', single_latest_post()->post_slug) }}">Baca
-                            Selengkapnya</a>
-                    </div>
-                </div>
-            @endif
-        </div>
-
-        <div class="col-lg-8">
-            <div class="row g-5">
-                <div class="col-lg-4 border-start custom-border">
-                    @foreach (latest_home_of_posts(3) as $item)
-                        @php
-                            $subcategory = App\Models\SubCategory::where('id', $item->category_id)->first();
-                            // echo json_encode($subcategory);
-                        @endphp
-                        <div class="post-entry-1">
-                            <a href="{{ route('read_post', $item->post_slug) }}"><img
-                                    src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
-                                    alt="Post Thumbnail" class="img-fluid"></a>
-                            <div class="post-meta"><span class="date">
-                                    {{ $subcategory->subcategory_name }}
-                                </span>
-                                <span class="mx-1">&bullet;</span>
-                                <span>{{ date_formatter($item->created_at) }}</span>
+    <!-- ======= Hero Slider Section ======= -->
+    <section id="hero-slider" class="hero-slider">
+        <div class="container-md" data-aos="fade-in">
+            <div class="row">
+                <div class="col-12">
+                    <div class="swiper sliderFeaturedPosts">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <a href="single-post.html" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('back/zenblog/img/post-slide-1.jpg');">
+                                    <div class="img-bg-inner">
+                                        <h2>The Best Homemade Masks for Face (keep the Pimples Away)</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
+                                            est mollitia! Beatae minima assumenda repellat harum vero, officiis
+                                            ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
+                                            necessitatibus rem atque.</p>
+                                    </div>
+                                </a>
                             </div>
-                            <h2><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="col-lg-4 border-start custom-border">
-                    @foreach (latest_home_of_posts(3) as $item)
-                        @php
-                            $subcategory = App\Models\SubCategory::where('id', $item->category_id)->first();
-                        @endphp
-                        <div class="post-entry-1">
-                            <a href="{{ route('read_post', $item->post_slug) }}"><img
-                                    src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
-                                    alt="Post Thumbnail" class="img-fluid"></a>
-                            <div class="post-meta"><span class="date">{{ $subcategory->subcategory_name }}</span> <span
-                                    class="mx-1">&bullet;</span>
-                                <span>{{ date_formatter($item->created_at) }}</span>
+
+                            <div class="swiper-slide">
+                                <a href="single-post.html" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('back/zenblog/img/post-slide-2.jpg');">
+                                    <div class="img-bg-inner">
+                                        <h2>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New
+                                            Haircut</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
+                                            est mollitia! Beatae minima assumenda repellat harum vero, officiis
+                                            ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
+                                            necessitatibus rem atque.</p>
+                                    </div>
+                                </a>
                             </div>
-                            <h2><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
+
+                            <div class="swiper-slide">
+                                <a href="single-post.html" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('back/zenblog/img/post-slide-3.jpg');">
+                                    <div class="img-bg-inner">
+                                        <h2>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
+                                            est mollitia! Beatae minima assumenda repellat harum vero, officiis
+                                            ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
+                                            necessitatibus rem atque.</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <a href="single-post.html" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('back/zenblog/img/post-slide-4.jpg');">
+                                    <div class="img-bg-inner">
+                                        <h2>9 Half-up/half-down Hairstyles for Long and Medium Hair</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
+                                            est mollitia! Beatae minima assumenda repellat harum vero, officiis
+                                            ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
+                                            necessitatibus rem atque.</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    @endforeach
+                        <div class="custom-swiper-button-next">
+                            <span class="bi-chevron-right"></span>
+                        </div>
+                        <div class="custom-swiper-button-prev">
+                            <span class="bi-chevron-left"></span>
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                    </div>
                 </div>
-
-                <!-- Trending Section -->
-                @if (recomended_posts())
-                    <div class="col-lg-4">
-
-                        <div class="trending">
-                            <h3>Trending</h3>
-                            @foreach (recomended_of_posts(5) as $item)
-                                <ul class="trending-post">
-                                    <li>
-                                        <a href="{{ route('read_post', $item->post_slug) }}">
-                                            <span class="number">1</span>
-                                            <h3>{{ $item->post_title }}</h3>
-                                            {{-- <span class="author">Jane Cooper</span> --}}
-                                            <span
-                                                class="text-lowercase text-muted">{{ readDuration($item->post_title, $item->post_content) }}
-                                                @choice('min|mins', readDuration($item->post_title, $item->post_content)) read</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            @endforeach
-                        </div>
-
-                    </div> <!-- End Trending Section -->
-
-                @endif
             </div>
         </div>
+    </section><!-- End Hero Slider Section -->
 
-    </div> <!-- End .row -->
+    <section id="posts" class="posts">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                @if (single_latest_post())
+                    <div class="post-entry-1 lg">
+                        <a href="{{ route('read_post', single_latest_post()->post_slug) }}">
+                            <img src="{{ asset('back/dist/img/posts-upload/' . single_latest_post()->featured_image) }}"
+                                alt="Post Thumbnail" class="img-fluid"></a>
+                        <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span>
+                            <span>{{ date_formatter(single_latest_post()->created_at) }}</span>
+                        </div>
+                        <h2><a
+                                href="{{ route('read_post', single_latest_post()->post_slug) }}">{{ single_latest_post()->post_title }}</a>
+                        </h2>
+                        <p class="mb-4 d-block">{!! Str::ucfirst(words(single_latest_post()->post_content, 50)) !!}</p>
+                        <div class="content"> <a class="read-more-btn"
+                                href="{{ route('read_post', single_latest_post()->post_slug) }}">Baca
+                                Selengkapnya</a>
+                        </div>
+                    </div>
+                @endif
+            </div>
 
-    <!-- ======= Culture Category Section ======= -->
+            <div class="col-lg-8">
+                <div class="row g-5">
+                    <div class="col-lg-4 border-start custom-border">
+                        @foreach (latest_home_of_posts(3) as $item)
+                            @php
+                                $subcategory = App\Models\SubCategory::where('id', $item->category_id)->first();
+                                // echo json_encode($subcategory);
+                            @endphp
+                            <div class="post-entry-1">
+                                <a href="{{ route('read_post', $item->post_slug) }}"><img
+                                        src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
+                                        alt="Post Thumbnail" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">
+                                        {{ $subcategory->subcategory_name }}
+                                    </span>
+                                    <span class="mx-1">&bullet;</span>
+                                    <span>{{ date_formatter($item->created_at) }}</span>
+                                </div>
+                                <h2><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="col-lg-4 border-start custom-border">
+                        @foreach (latest_home_of_posts(3) as $item)
+                            @php
+                                $subcategory = App\Models\SubCategory::where('id', $item->category_id)->first();
+                            @endphp
+                            <div class="post-entry-1">
+                                <a href="{{ route('read_post', $item->post_slug) }}"><img
+                                        src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
+                                        alt="Post Thumbnail" class="img-fluid"></a>
+                                <div class="post-meta"><span class="date">{{ $subcategory->subcategory_name }}</span>
+                                    <span class="mx-1">&bullet;</span>
+                                    <span>{{ date_formatter($item->created_at) }}</span>
+                                </div>
+                                <h2><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Trending Section -->
+                    @if (recomended_posts())
+                        <div class="col-lg-4">
+
+                            <div class="trending">
+                                <h3>Trending</h3>
+                                @foreach (recomended_of_posts(5) as $item)
+                                    <ul class="trending-post">
+                                        <li>
+                                            <a href="{{ route('read_post', $item->post_slug) }}">
+                                                <span class="number">1</span>
+                                                <h3>{{ $item->post_title }}</h3>
+                                                {{-- <span class="author">Jane Cooper</span> --}}
+                                                <span
+                                                    class="text-lowercase text-muted">{{ readDuration($item->post_title, $item->post_content) }}
+                                                    @choice('min|mins', readDuration($item->post_title, $item->post_content)) read</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                @endforeach
+                            </div>
+
+                        </div> <!-- End Trending Section -->
+
+                    @endif
+                </div>
+            </div>
+
+        </div> <!-- End .row -->
+    </section>
+
+    <!-- ======= Category Section ======= -->
     @php
         $getCateg = App\Models\Category::whereHas('subcategories', function ($q) {
             $q->whereHas('posts');
@@ -147,7 +222,8 @@
                                     <span class="mx-1">&bullet;</span>
                                     <span>{{ date_formatter($getPost->created_at) }}</span>
                                 </div>
-                                <h3><a href="{{ route('read_post', $getPost->post_slug) }}">{{ $getPost->post_title }}</a>
+                                <h3><a
+                                        href="{{ route('read_post', $getPost->post_slug) }}">{{ $getPost->post_title }}</a>
                                 </h3>
                                 <p>{!! Str::ucfirst(words($getPost->post_content, 50)) !!}</p>
                                 <div class="d-flex align-items-center author">
@@ -221,5 +297,5 @@
             </div>
         </section>
     @endforeach
-    <!-- End Culture Category Section -->
+    <!-- End Category Section -->
 @endsection
