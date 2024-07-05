@@ -116,10 +116,10 @@
                 @endif
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-4">
                 <div class="row g-5">
-                    <div class="col-lg-4 border-start custom-border">
-                        @foreach (latest_home_of_posts(3) as $item)
+                    @foreach (latest_home_of_posts(4) as $item)
+                        <div class="col-lg-6 border-start custom-border">
                             @php
                                 $subcategory = App\Models\SubCategory::where('id', $item->category_id)->first();
                                 // echo json_encode($subcategory);
@@ -136,9 +136,9 @@
                                 </div>
                                 <h2><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
                             </div>
-                        @endforeach
-                    </div>
-                    <div class="col-lg-4 border-start custom-border">
+                        </div>
+                    @endforeach
+                    {{-- <div class="col-lg-4 border-start custom-border">
                         @foreach (latest_home_of_posts(3) as $item)
                             @php
                                 $subcategory = App\Models\SubCategory::where('id', $item->category_id)->first();
@@ -154,34 +154,36 @@
                                 <h2><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h2>
                             </div>
                         @endforeach
-                    </div>
+                    </div> --}}
 
-                    <!-- Trending Section -->
-                    @if (recomended_posts())
-                        <div class="col-lg-4">
-
-                            <div class="trending">
-                                <h3>Trending</h3>
-                                @foreach (recomended_of_posts(5) as $item)
-                                    <ul class="trending-post">
-                                        <li>
-                                            <a href="{{ route('read_post', $item->post_slug) }}">
-                                                <span class="number">1</span>
-                                                <h3>{{ $item->post_title }}</h3>
-                                                {{-- <span class="author">Jane Cooper</span> --}}
-                                                <span
-                                                    class="text-lowercase text-muted">{{ readDuration($item->post_title, $item->post_content) }}
-                                                    @choice('min|mins', readDuration($item->post_title, $item->post_content)) read</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                @endforeach
-                            </div>
-
-                        </div> <!-- End Trending Section -->
-
-                    @endif
                 </div>
+            </div>
+            <div class="col-lg-4">
+                <!-- Trending Section -->
+                @if (recomended_posts())
+                    <div class="col-lg-12">
+
+                        <div class="trending">
+                            <h3>Trending</h3>
+                            @foreach (recomended_of_posts(5) as $item)
+                                <ul class="trending-post">
+                                    <li>
+                                        <a href="{{ route('read_post', $item->post_slug) }}">
+                                            <span class="number">1</span>
+                                            <h3>{{ $item->post_title }}</h3>
+                                            <span
+                                                class="text-lowercase text-muted">{{ readDuration($item->post_title, $item->post_content) }}
+                                                @choice('min|mins', readDuration($item->post_title, $item->post_content)) read</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            @endforeach
+                        </div>
+
+                    </div>
+                    <!-- End Trending Section -->
+
+                @endif
             </div>
 
         </div> <!-- End .row -->

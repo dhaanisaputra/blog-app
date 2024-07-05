@@ -54,14 +54,13 @@
             <div class="search-form-wrap js-search-form-wrap">
                 <form action="{{ route('search_posts') }}" class="search-form">
                     <span class="icon bi-search"></span>
-                    <input id="search-query" name="query" value="{{ Request('query') }}" type="search"
-                        placeholder="Search" class="form-control">
+                    <input type="text" placeholder="Search" value="{{ Request('query') }}" class="form-control">
                     <button class="btn js-search-close"><span class="bi-x"></span></button>
                 </form>
-            </div><!-- End Search Form -->
+            </div>
+            <!-- End Search Form -->
 
         </div>
-
     </div>
 
 </header><!-- End Header -->

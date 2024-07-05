@@ -206,3 +206,17 @@ if (!function_exists('latest_home_6_posts')) {
             ->get();
     }
 }
+
+/**
+ * Display Home latest post article by param
+ */
+if (!function_exists('latest_all_of_posts')) {
+    function latest_all_of_posts($limit)
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->limit($limit)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
