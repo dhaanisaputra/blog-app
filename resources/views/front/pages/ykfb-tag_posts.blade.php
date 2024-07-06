@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-md-9 aos-init aos-animate" data-aos="fade-up">
-                <h3 class="category-title">Category: {{ $category->subcategory_name }}</h3>
+                <h3 class="category-title">{{ $pageTitle }}</h3>
 
                 @forelse ($posts as $item)
                     @php
@@ -101,18 +101,18 @@
                         <!-- End Recommended -->
 
                         <!-- Latest -->
-                        @php
+                        {{-- @php
                             $getSubCateg = App\Models\SubCategory::where(
                                 'subcategory_name',
                                 $category->subcategory_name,
                             )
                                 ->whereHas('posts')
                                 ->first();
-                        @endphp
+                        @endphp --}}
                         <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
-                            @foreach (latest_home_6_posts($getSubCateg->id) as $item)
+                            @foreach (latest_all_of_posts(5) as $item)
                                 <div class="post-entry-1 border-bottom">
-                                    <div class="post-meta"><span class="date">{{ $getSubCateg->subcategory_name }}</span>
+                                    <div class="post-meta"><span class="date">{{ $item->subcategory_name }}</span>
                                         <span class="mx-1">•</span>
                                         <span>{{ date_formatter($item->created_at) }}</span>
                                     </div>
@@ -149,14 +149,23 @@
                     </ul>
                 </div><!-- End Categories -->
 
-                <!-- ======= Tags ======= -->
-                @include('front.layout.inc.tags_list')
-                <!-- End Tags -->
+                <div class="aside-block">
+                    <h3 class="aside-title">Tags</h3>
+                    <ul class="aside-tags list-unstyled">
+                        <li><a href="category.html">Business</a></li>
+                        <li><a href="category.html">Culture</a></li>
+                        <li><a href="category.html">Sport</a></li>
+                        <li><a href="category.html">Food</a></li>
+                        <li><a href="category.html">Politics</a></li>
+                        <li><a href="category.html">Celebrity</a></li>
+                        <li><a href="category.html">Startups</a></li>
+                        <li><a href="category.html">Travel</a></li>
+                    </ul>
+                </div><!-- End Tags -->
 
             </div>
 
         </div>
     </div>
     {{-- </section> --}}
-
 @endsection

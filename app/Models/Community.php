@@ -41,4 +41,9 @@ class Community extends Model
             $query->where('communities_title', 'like', $term);
         });
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id', 'id');
+    }
 }

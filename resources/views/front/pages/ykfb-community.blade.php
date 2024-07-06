@@ -5,27 +5,24 @@
     {{-- <section> --}}
     <div class="container">
         <div class="row">
-
+            @php
+                $getCommunity = App\Models\Community::all();
+            @endphp
             <div class="col-md-9 aos-init aos-animate" data-aos="fade-up">
-                <h3 class="category-title">Category: {{ $category->subcategory_name }}</h3>
+                <h3 class="category-title">Community</h3>
 
-                @forelse ($posts as $item)
-                    @php
-                        $getSubCateg = App\Models\SubCategory::where('id', $item->category_id)
-                            ->whereHas('posts')
-                            ->first();
-                    @endphp
+                @forelse ($getCommunity as $item)
                     <div class="d-md-flex post-entry-2 half">
-                        <a href="{{ route('read_post', $item->post_slug) }}" class="me-4 thumbnail">
-                            <img src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
+                        <a href="{{ route('read_community', $item->post_slug) }}" class="thumbnail">
+                            <img src="{{ asset('back/dist/img/community-upload/thumbnails/resized_' . $item->featured_image) }}"
                                 alt="" class="img-fluid">
                         </a>
                         <div>
-                            <div class="post-meta"><span class="date">{{ $getSubCateg->subcategory_name }}</span> <span
-                                    class="mx-1">•</span>
+                            <div class="post-meta">
                                 <span>{{ date_formatter($item->created_at) }}</span>
                             </div>
-                            <h3><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h3>
+                            <h3><a href="{{ route('read_community', $item->post_slug) }}">{{ $item->communities_title }}</a>
+                            </h3>
                             <p>{!! Str::ucfirst(words($item->post_content, 40)) !!}</p>
                             <div class="d-flex align-items-center author">
                                 <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid">
@@ -34,8 +31,8 @@
                                     @php
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
                                     @endphp
-                                    {{-- <span class="author mb-3 d-block">{{ $getAuthor->name }}</span> --}}
-                                    <h3 class="m-0 p-0">{{ $getAuthor->name }}</h3>
+                                    <span class="author mb-3 d-block">Author: {{ $getAuthor->name }}</span>
+                                    {{-- <h3 class="m-0 p-0">{{ $getAuthor->name }}</h3> --}}
                                 </div>
                             </div>
                         </div>
@@ -46,7 +43,7 @@
 
                 <div class="text-start py-4">
                     {{-- {{ $posts->appends(request()->input())->links('ykfb-custom_pagination') }} --}}
-                    {!! $posts->withQueryString()->links('pagination::bootstrap-5') !!}
+                    {{-- {!! $getCommunity->withQueryString()->links('pagination::bootstrap-5') !!} --}}
                 </div>
             </div>
 
@@ -61,15 +58,15 @@
                                 aria-selected="true">Recommended</button>
                         </li>
                         {{-- <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-trending" type="button" role="tab"
-                                aria-controls="pills-trending" aria-selected="false" tabindex="-1">Trending</button>
-                        </li> --}}
-                        <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-trending" type="button" role="tab"
+                                    aria-controls="pills-trending" aria-selected="false" tabindex="-1">Trending</button>
+                            </li> --}}
+                        {{-- <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest"
                                 aria-selected="false" tabindex="-1">Latest</button>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <div class="tab-content" id="pills-tabContent">
@@ -89,7 +86,7 @@
                                         <span>{{ date_formatter($item->created_at) }}</span>
                                     </div>
                                     <h2 class="mb-2"><a
-                                            href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a>
+                                            href="{{ route('read_community', $item->post_slug) }}">{{ $item->post_title }}</a>
                                     </h2>
                                     @php
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
@@ -101,7 +98,7 @@
                         <!-- End Recommended -->
 
                         <!-- Latest -->
-                        @php
+                        {{-- @php
                             $getSubCateg = App\Models\SubCategory::where(
                                 'subcategory_name',
                                 $category->subcategory_name,
@@ -117,7 +114,7 @@
                                         <span>{{ date_formatter($item->created_at) }}</span>
                                     </div>
                                     <h2 class="mb-2"><a
-                                            href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a>
+                                            href="{{ route('read_community', $item->post_slug) }}">{{ $item->post_title }}</a>
                                     </h2>
                                     @php
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
@@ -125,21 +122,21 @@
                                     <span class="author mb-3 d-block">{{ $getAuthor->name }}</span>
                                 </div>
                             @endforeach
-                        </div>
+                        </div> --}}
                         <!-- End Latest -->
 
                     </div>
                 </div>
 
                 {{-- <div class="aside-block">
-                    <h3 class="aside-title">Video</h3>
-                    <div class="video-post">
-                        <a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">
-                            <span class="bi-play-fill"></span>
-                            <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
-                        </a>
-                    </div>
-                </div><!-- End Video --> --}}
+                        <h3 class="aside-title">Video</h3>
+                        <div class="video-post">
+                            <a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">
+                                <span class="bi-play-fill"></span>
+                                <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div><!-- End Video --> --}}
 
                 <div class="aside-block">
                     <h3 class="aside-title">Categories</h3>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Community;
 use App\Models\Post;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
@@ -112,6 +113,33 @@ class BlogController extends Controller
             'posts' => $posts,
         ];
 
-        return view('front.pages.tag_posts', $data);
+        // return view('front.pages.tag_posts', $data);
+        return view('front.pages.ykfb-tag_posts', $data);
+    }
+
+    public function readCommunity($slug)
+    {
+        if (!$slug) {
+            return abort(404);
+        } else {
+            $post = Community::where('post_slug', $slug)
+                ->with('author')
+                ->first();
+
+            $post_tags = explode(',', $post->post_tags);
+            $related_post = Community::where('id', '!=', $post->id)
+                ->inRandomOrder()
+                ->take(3)
+                ->get();
+
+            $data = [
+                'pageTitle' => Str::ucfirst($post->post_title),
+                'posts' => $post,
+                'related_posts' => $related_post
+            ];
+            // return $data;
+            // return view('front.pages.single_post', $data);
+            return view('front.pages.ykfb-community-single', $data);
+        }
     }
 }

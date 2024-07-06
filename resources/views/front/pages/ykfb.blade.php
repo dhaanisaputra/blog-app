@@ -200,7 +200,7 @@
             <div class="container" data-aos="fade-up">
                 <div class="section-header d-flex justify-content-between align-items-center mb-5">
                     <h2>{{ $category->category_name }}</h2>
-                    <div><a href="category.html" class="more">See All {{ $category->category_name }}</a></div>
+                    <div><a href="{{ route('category_posts', $subcategory->slug) }}" class="more"></a></div>
                 </div>
 
                 <div class="row">

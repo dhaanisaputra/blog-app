@@ -3,9 +3,10 @@
 use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\Settings;
+use App\Models\Community;
 use App\Models\SubCategory;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Str;
+use GuzzleHttp\Psr7\Request;
 
 if (!function_exists('blogInfo')) {
     function blogInfo()
@@ -218,5 +219,30 @@ if (!function_exists('latest_all_of_posts')) {
             ->limit($limit)
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+}
+
+
+/**
+ * Display Home 6 latest post article by category
+ */
+if (!function_exists('latest_community_6_posts')) {
+    function latest_community_6_posts($limit)
+    {
+        return Community::with('author')
+            ->skip(1)
+            ->limit($limit)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
+
+/**
+ * Display all tags
+ */
+if (!function_exists('all_tags')) {
+    function all_tags()
+    {
+        return Post::where('post_tags', '!=', null)->distinct()->pluck('post_tags')->join(',');
     }
 }

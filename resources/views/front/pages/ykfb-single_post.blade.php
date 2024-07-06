@@ -40,6 +40,20 @@
                         <img src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $posts->featured_image) }}"
                             alt="Post Thumbnail" class="img-fluid mb-4">
                         <p>{!! $posts->post_content !!}</p>
+
+                        @if ($posts->post_tags)
+                            @php
+                                $tagsStr = $posts->post_tags;
+                                $tagsArray = explode(',', $tagsStr);
+                            @endphp
+                            <div class="tags-container mt-4">
+                                <ul class="aside-tags list-unstyled">
+                                    @foreach ($tagsArray as $tag)
+                                        <li><a href="{{ route('tag_posts', $tag) }}">#{{ $tag }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                     <!-- End Single Post Content -->
 
@@ -246,19 +260,9 @@
                         </ul>
                     </div><!-- End Categories -->
 
-                    <div class="aside-block">
-                        <h3 class="aside-title">Tags</h3>
-                        <ul class="aside-tags list-unstyled">
-                            <li><a href="category.html">Business</a></li>
-                            <li><a href="category.html">Culture</a></li>
-                            <li><a href="category.html">Sport</a></li>
-                            <li><a href="category.html">Food</a></li>
-                            <li><a href="category.html">Politics</a></li>
-                            <li><a href="category.html">Celebrity</a></li>
-                            <li><a href="category.html">Startups</a></li>
-                            <li><a href="category.html">Travel</a></li>
-                        </ul>
-                    </div><!-- End Tags -->
+                    <!-- ======= Tags ======= -->
+                    @include('front.layout.inc.tags_list')
+                    <!-- End Tags -->
 
                 </div>
             </div>

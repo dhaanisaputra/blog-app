@@ -65,5 +65,6 @@ Route::get('/category/{any}', [BlogController::class, 'categoryPost'])->name('ca
 Route::get('/posts/tag/{any}', [BlogController::class, 'tagPost'])->name('tag_posts');
 Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts');
 
-Route::view('/about-me', 'front.pages.aboutme')->name('about-me');
-Route::view('/community', 'front.pages.community')->name('community');
+Route::view('/about-me', 'front.pages.ykfb-about-me')->name('about-me');
+Route::view('/community', 'front.pages.ykfb-community')->name('community');
+Route::get('/community/{any}', [BlogController::class, 'readCommunity'])->name('read_community');
