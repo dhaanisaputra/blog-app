@@ -22,8 +22,6 @@
                             </h3>
                             <p>{!! Str::ucfirst(words($item->post_content, 40)) !!}</p>
                             <div class="d-flex align-items-center author">
-                                <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid">
-                                </div>
                                 <div class="name">
                                     @php
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
@@ -38,34 +36,9 @@
                     <span class="text-danger">No Posts found in this category.</span>
                 @endforelse
 
-                {{-- <div class="text-start py-4">
-                    {{ $data->appends(request()->input())->links('ykfb-custom_pagination') }}
-                    {!! $getCommunity->withQueryString()->links('pagination::bootstrap-5') !!}
-                </div> --}}
+                <!-- ======= Pagination ======= -->
                 {{ $data->appends(request()->input())->links('ykfb-custom_pagination') }}
-                {{-- <div class="text-start py-4">
-                    <div class="custom-pagination">
-                        @if ($data->onFirstPage())
-                            <span class="prev">Previous</span>
-                        @else
-                            <a href="{{ $data->previousPageUrl() }}" class="prev">Previous</a>
-                        @endif
-
-                        @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
-                            @if ($page == $data->currentPage())
-                                <a href="{{ $url }}" class="active">{{ $page }}</a>
-                            @else
-                                <a href="{{ $url }}">{{ $page }}</a>
-                            @endif
-                        @endforeach
-
-                        @if ($data->hasMorePages())
-                            <a href="{{ $data->nextPageUrl() }}" class="next">Next</a>
-                        @else
-                            <span class="next">Next</span>
-                        @endif
-                    </div>
-                </div> --}}
+                <!-- End Pagination -->
             </div>
 
             <div class="col-md-3">
@@ -78,16 +51,6 @@
                                 data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular"
                                 aria-selected="true">Recommended</button>
                         </li>
-                        {{-- <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-trending" type="button" role="tab"
-                                    aria-controls="pills-trending" aria-selected="false" tabindex="-1">Trending</button>
-                            </li> --}}
-                        {{-- <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest"
-                                aria-selected="false" tabindex="-1">Latest</button>
-                        </li> --}}
                     </ul>
 
                     <div class="tab-content" id="pills-tabContent">
@@ -117,35 +80,6 @@
                             @endforeach
                         </div>
                         <!-- End Recommended -->
-
-                        <!-- Latest -->
-                        {{-- @php
-                            $getSubCateg = App\Models\SubCategory::where(
-                                'subcategory_name',
-                                $category->subcategory_name,
-                            )
-                                ->whereHas('posts')
-                                ->first();
-                        @endphp
-                        <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
-                            @foreach (latest_home_6_posts($getSubCateg->id) as $item)
-                                <div class="post-entry-1 border-bottom">
-                                    <div class="post-meta"><span class="date">{{ $getSubCateg->subcategory_name }}</span>
-                                        <span class="mx-1">•</span>
-                                        <span>{{ date_formatter($item->created_at) }}</span>
-                                    </div>
-                                    <h2 class="mb-2"><a
-                                            href="{{ route('read_community', $item->post_slug) }}">{{ $item->post_title }}</a>
-                                    </h2>
-                                    @php
-                                        $getAuthor = App\Models\User::where('id', $item->author_id)->first();
-                                    @endphp
-                                    <span class="author mb-3 d-block">{{ $getAuthor->name }}</span>
-                                </div>
-                            @endforeach
-                        </div> --}}
-                        <!-- End Latest -->
-
                     </div>
                 </div>
 

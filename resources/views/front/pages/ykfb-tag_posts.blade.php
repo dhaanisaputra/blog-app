@@ -28,8 +28,6 @@
                             <h3><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h3>
                             <p>{!! Str::ucfirst(words($item->post_content, 40)) !!}</p>
                             <div class="d-flex align-items-center author">
-                                <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid">
-                                </div>
                                 <div class="name">
                                     @php
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
