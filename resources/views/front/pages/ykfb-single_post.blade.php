@@ -256,7 +256,6 @@
                         <h3 class="aside-title">Categories</h3>
                         <ul class="aside-links list-unstyled">
                             @include('front.layout.inc.categories_list')
-                            {{-- <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li> --}}
                         </ul>
                     </div><!-- End Categories -->
 

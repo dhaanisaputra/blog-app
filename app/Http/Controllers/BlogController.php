@@ -142,4 +142,15 @@ class BlogController extends Controller
             return view('front.pages.ykfb-community-single', $data);
         }
     }
+
+    public function listCommunity(Request $request)
+    {
+        $perPage = 8; // Number of items per page
+        $data = Community::paginate($perPage);
+
+        // If you want to preserve query parameters, use appends
+        $data->appends($request->all());
+        // return $data;
+        return view('front.pages.ykfb-community', compact('data'));
+    }
 }

@@ -5,13 +5,10 @@
     {{-- <section> --}}
     <div class="container">
         <div class="row">
-            @php
-                $getCommunity = App\Models\Community::all();
-            @endphp
             <div class="col-md-9 aos-init aos-animate" data-aos="fade-up">
                 <h3 class="category-title">Community</h3>
 
-                @forelse ($getCommunity as $item)
+                @forelse ($data as $item)
                     <div class="d-md-flex post-entry-2 half">
                         <a href="{{ route('read_community', $item->post_slug) }}" class="thumbnail">
                             <img src="{{ asset('back/dist/img/community-upload/thumbnails/resized_' . $item->featured_image) }}"
@@ -41,10 +38,34 @@
                     <span class="text-danger">No Posts found in this category.</span>
                 @endforelse
 
-                <div class="text-start py-4">
-                    {{-- {{ $posts->appends(request()->input())->links('ykfb-custom_pagination') }} --}}
-                    {{-- {!! $getCommunity->withQueryString()->links('pagination::bootstrap-5') !!} --}}
-                </div>
+                {{-- <div class="text-start py-4">
+                    {{ $data->appends(request()->input())->links('ykfb-custom_pagination') }}
+                    {!! $getCommunity->withQueryString()->links('pagination::bootstrap-5') !!}
+                </div> --}}
+                {{ $data->appends(request()->input())->links('ykfb-custom_pagination') }}
+                {{-- <div class="text-start py-4">
+                    <div class="custom-pagination">
+                        @if ($data->onFirstPage())
+                            <span class="prev">Previous</span>
+                        @else
+                            <a href="{{ $data->previousPageUrl() }}" class="prev">Previous</a>
+                        @endif
+
+                        @foreach ($data->getUrlRange(1, $data->lastPage()) as $page => $url)
+                            @if ($page == $data->currentPage())
+                                <a href="{{ $url }}" class="active">{{ $page }}</a>
+                            @else
+                                <a href="{{ $url }}">{{ $page }}</a>
+                            @endif
+                        @endforeach
+
+                        @if ($data->hasMorePages())
+                            <a href="{{ $data->nextPageUrl() }}" class="next">Next</a>
+                        @else
+                            <span class="next">Next</span>
+                        @endif
+                    </div>
+                </div> --}}
             </div>
 
             <div class="col-md-3">
@@ -142,7 +163,6 @@
                     <h3 class="aside-title">Categories</h3>
                     <ul class="aside-links list-unstyled">
                         @include('front.layout.inc.categories_list')
-                        {{-- <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li> --}}
                     </ul>
                 </div><!-- End Categories -->
 

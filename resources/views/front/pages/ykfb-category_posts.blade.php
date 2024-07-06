@@ -28,8 +28,8 @@
                             <h3><a href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a></h3>
                             <p>{!! Str::ucfirst(words($item->post_content, 40)) !!}</p>
                             <div class="d-flex align-items-center author">
-                                <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid">
-                                </div>
+                                {{-- <div class="photo"><img src="assets/img/person-2.jpg" alt="" class="img-fluid">
+                                </div> --}}
                                 <div class="name">
                                     @php
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
@@ -44,10 +44,10 @@
                     <span class="text-danger">No Posts found in this category.</span>
                 @endforelse
 
-                <div class="text-start py-4">
-                    {{-- {{ $posts->appends(request()->input())->links('ykfb-custom_pagination') }} --}}
+                {{ $posts->appends(request()->input())->links('ykfb-custom_pagination') }}
+                {{-- <div class="text-start py-4">
                     {!! $posts->withQueryString()->links('pagination::bootstrap-5') !!}
-                </div>
+                </div> --}}
             </div>
 
             <div class="col-md-3">
@@ -145,7 +145,6 @@
                     <h3 class="aside-title">Categories</h3>
                     <ul class="aside-links list-unstyled">
                         @include('front.layout.inc.categories_list')
-                        {{-- <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li> --}}
                     </ul>
                 </div><!-- End Categories -->
 
