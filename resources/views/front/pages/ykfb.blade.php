@@ -27,55 +27,51 @@
                     <div class="swiper sliderFeaturedPosts">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <a href="single-post.html" class="img-bg d-flex align-items-end"
-                                    style="background-image: url('back/zenblog/img/post-slide-1.jpg');">
-                                    <div class="img-bg-inner">
-                                        <h2>The Best Homemade Masks for Face (keep the Pimples Away)</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
-                                            est mollitia! Beatae minima assumenda repellat harum vero, officiis
-                                            ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
-                                            necessitatibus rem atque.</p>
-                                    </div>
+                                <a href="#" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('/back/dist/img/img-slider/ykfb-siklus.jpg');">
+                                    {{-- <div class="img-bg-inner">
+                                        <h2>Welcome to our home</h2>
+                                    </div> --}}
                                 </a>
                             </div>
 
                             <div class="swiper-slide">
-                                <a href="single-post.html" class="img-bg d-flex align-items-end"
-                                    style="background-image: url('back/zenblog/img/post-slide-2.jpg');">
-                                    <div class="img-bg-inner">
+                                <a href="#" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('/back/dist/img/img-slider/ykfb x bekasi-slider.jpg');">
+                                    {{-- <div class="img-bg-inner">
                                         <h2>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New
                                             Haircut</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
                                             est mollitia! Beatae minima assumenda repellat harum vero, officiis
                                             ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
                                             necessitatibus rem atque.</p>
-                                    </div>
+                                    </div> --}}
                                 </a>
                             </div>
 
                             <div class="swiper-slide">
-                                <a href="single-post.html" class="img-bg d-flex align-items-end"
-                                    style="background-image: url('back/zenblog/img/post-slide-3.jpg');">
-                                    <div class="img-bg-inner">
+                                <a href="#" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('/back/dist/img/img-slider/ykfb-oak-2023-slider.jpg');">
+                                    {{-- <div class="img-bg-inner">
                                         <h2>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
                                             est mollitia! Beatae minima assumenda repellat harum vero, officiis
                                             ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
                                             necessitatibus rem atque.</p>
-                                    </div>
+                                    </div> --}}
                                 </a>
                             </div>
 
                             <div class="swiper-slide">
-                                <a href="single-post.html" class="img-bg d-flex align-items-end"
-                                    style="background-image: url('back/zenblog/img/post-slide-4.jpg');">
-                                    <div class="img-bg-inner">
+                                <a href="#" class="img-bg d-flex align-items-end"
+                                    style="background-image: url('/back/dist/img/img-slider/ykfb-oak-slider.jpg');">
+                                    {{-- <div class="img-bg-inner">
                                         <h2>9 Half-up/half-down Hairstyles for Long and Medium Hair</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque
                                             est mollitia! Beatae minima assumenda repellat harum vero, officiis
                                             ipsam magnam obcaecati cumque maxime inventore repudiandae quidem
                                             necessitatibus rem atque.</p>
-                                    </div>
+                                    </div> --}}
                                 </a>
                             </div>
                         </div>
