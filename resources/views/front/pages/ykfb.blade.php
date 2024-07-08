@@ -196,7 +196,7 @@
             <div class="container" data-aos="fade-up">
                 <div class="section-header d-flex justify-content-between align-items-center mb-5">
                     <h2>{{ $category->category_name }}</h2>
-                    <div><a href="{{ route('category_posts', $subcategory->slug) }}" class="more">See all</a></div>
+                    <div><a href="{{ route('posts_per_category', $category->id) }}" class="more">See all</a></div>
                 </div>
 
                 <div class="row">
@@ -320,8 +320,8 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-md-3">
-                        @foreach (latest_home_6_posts($getPost->category_id) as $item)
+                    <div class="col-md-3">
+                        @foreach (random_home_posts_per_category($category->id, 6) as $item)
                             <div class="post-entry-1 border-bottom">
                                 <div class="post-meta"><span class="date">{{ $getSubCateg->subcategory_name }}</span>
                                     <span class="mx-1">&bullet;</span>
@@ -336,7 +336,7 @@
                                 <span class="author mb-3 d-block">{{ $getAuthor->name }}</span>
                             </div>
                         @endforeach
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </section>

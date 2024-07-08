@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Community;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Community;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -152,5 +154,31 @@ class BlogController extends Controller
         $data->appends($request->all());
         // return $data;
         return view('front.pages.ykfb-community', compact('data'));
+    }
+
+    public function postPerCategory(Request $request, $id)
+    {
+        if (!$id) {
+            return abort(404);
+        } else {
+            $getPostCateg = DB::table('posts as p')
+                ->leftJoin('sub_categories as sc', 'sc.id', '=', 'p.category_id')
+                ->leftJoin('categories as c', 'c.id', '=', 'sc.parent_category')
+                ->where('c.id', $id)
+                ->select('p.*', 'c.category_name')
+                ->orderBy('p.created_at', 'desc')
+                ->get();
+            $getCategory = Category::where('id', $id)->first();
+            if (!$getPostCateg) {
+                return abort(404);
+            } else {
+                $data = [
+                    'pageTitle' => 'Category - ' . $getCategory->category_name,
+                    'category' => $id,
+                    'posts' => $getPostCateg
+                ];
+                return view('front.pages.ykfb-all_posts_by_category', $data);
+            }
+        }
     }
 }

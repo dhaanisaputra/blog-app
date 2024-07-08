@@ -62,6 +62,7 @@ Route::view('/ykfb-new', 'front.pages.ykfb');
 
 Route::get('/article/{any}', [BlogController::class, 'readPost'])->name('read_post');
 Route::get('/category/{any}', [BlogController::class, 'categoryPost'])->name('category_posts');
+Route::get('/post-per-category/{any}', [BlogController::class, 'postPerCategory'])->name('posts_per_category');
 Route::get('/posts/tag/{any}', [BlogController::class, 'tagPost'])->name('tag_posts');
 Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts');
 

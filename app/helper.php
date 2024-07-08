@@ -293,3 +293,24 @@ if (!function_exists('all_latest_home_posts_per_category')) {
         return $getPost;
     }
 }
+
+
+/**
+ * Display Home latest post each category article by limit and skip 1 post
+ */
+if (!function_exists('random_home_posts_per_category')) {
+    function random_home_posts_per_category($category, $limit)
+    {
+        $getPost = DB::table('posts as p')
+            ->leftJoin('sub_categories as sc', 'sc.id', '=', 'p.category_id')
+            ->leftJoin('categories as c', 'c.id', '=', 'sc.parent_category')
+            ->where('c.id', $category)
+            ->select('p.*')
+            // ->orderBy('p.created_at', 'desc')
+            ->limit($limit)
+            ->inRandomOrder()
+            ->skip(1)
+            ->get();
+        return $getPost;
+    }
+}
