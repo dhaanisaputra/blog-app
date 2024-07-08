@@ -9,8 +9,8 @@
                 <h3 class="category-title">Community</h3>
 
                 @forelse ($data as $item)
-                    <div class="d-md-flex post-entry-2 half">
-                        <a href="{{ route('read_community', $item->post_slug) }}" class="thumbnail">
+                    <div class="d-md-flex post-entry-2 small-logo half">
+                        <a href="{{ route('read_community', $item->post_slug) }}" class="logo">
                             <img src="{{ asset('back/dist/img/community-upload/thumbnails/resized_' . $item->featured_image) }}"
                                 alt="" class="img-fluid">
                         </a>

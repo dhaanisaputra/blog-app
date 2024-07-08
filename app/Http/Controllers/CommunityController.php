@@ -32,11 +32,15 @@ class CommunityController extends Controller
             }
             $imgManager = new ImageManager(new Driver());
             $thumbImg = $imgManager->read($path . $new_filename);
-            $thumbImg = $thumbImg->resize(200, 200);
+            $thumbImg = $thumbImg->resize(200, 200, function ($constraint) {
+                $constraint->aspectRation();
+            });
             $thumbImg->save(public_path($path . 'thumbnails/' . 'thumb_' . $new_filename));
 
             $resizeImg = $imgManager->read($path . $new_filename);
-            $resizeImg = $resizeImg->resize(500, 350);
+            $resizeImg = $resizeImg->resize(100, 100, function ($constraint) {
+                $constraint->aspectRation();
+            });
             $resizeImg->save(public_path($path . 'thumbnails/' . 'resized_' . $new_filename));
 
             $postCommunity = new Community();
@@ -92,11 +96,15 @@ class CommunityController extends Controller
             }
             $imgManager = new ImageManager(new Driver());
             $thumbImg = $imgManager->read($path . $new_filename);
-            $thumbImg = $thumbImg->resize(200, 200);
+            $thumbImg = $thumbImg->resize(200, 200, function ($constraint) {
+                $constraint->aspectRation();
+            });
             $thumbImg->save(public_path($path . 'thumbnails/' . 'thumb_' . $new_filename));
 
             $resizeImg = $imgManager->read($path . $new_filename);
-            $resizeImg = $resizeImg->resize(500, 350);
+            $resizeImg = $resizeImg->resize(100, 100, function ($constraint) {
+                $constraint->aspectRation();
+            });
             $resizeImg->save(public_path($path . 'thumbnails/' . 'resized_' . $new_filename));
 
             $old_post_image = Community::find($request->community_id)->featured_image;
