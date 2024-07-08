@@ -56,7 +56,7 @@ class BlogController extends Controller
                 ->paginate(6);
 
             $data = [
-                'pageTitle' => 'Search for :: ' . $request->query('query'),
+                'pageTitle' => 'Search for :: ' . $request->query('query') . ' - Yogyakarta Fingerboard Community',
                 'posts' => $posts
             ];
 
@@ -88,7 +88,7 @@ class BlogController extends Controller
                 ->get();
 
             $data = [
-                'pageTitle' => Str::ucfirst($post->post_title),
+                'pageTitle' => Str::ucfirst($post->post_title) . ' - Yogyakarta Fingerboard Community',
                 'posts' => $post,
                 'related_posts' => $related_post
             ];
@@ -111,7 +111,7 @@ class BlogController extends Controller
         }
 
         $data = [
-            'pageTitle' => '#' . $tag,
+            'pageTitle' => '#' . $tag . ' - Yogyakarta Fingerboard Community',
             'posts' => $posts,
         ];
 
@@ -135,7 +135,7 @@ class BlogController extends Controller
                 ->get();
 
             $data = [
-                'pageTitle' => Str::ucfirst($post->post_title),
+                'pageTitle' => 'Community - ' . Str::ucfirst($post->communities_title),
                 'posts' => $post,
                 'related_posts' => $related_post
             ];

@@ -1,12 +1,12 @@
 @extends('front.layout.ykfb-page-layout')
-@section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Welcome To Yogyakarta Fingerboard Community')
+@section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Community')
 @section('content-ykfb')
 
     {{-- <section> --}}
     <div class="container">
         <div class="row">
             <div class="col-md-9 aos-init aos-animate" data-aos="fade-up">
-                <h3 class="category-title">Community</h3>
+                <h3 class="category-title">All Community</h3>
 
                 @forelse ($data as $item)
                     <div class="d-md-flex post-entry-2 small-logo half">

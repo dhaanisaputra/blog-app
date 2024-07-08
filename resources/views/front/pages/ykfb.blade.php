@@ -1,5 +1,5 @@
 @extends('front.layout.ykfb-page-layout')
-@section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Welcome To Yogyakarta Fingerboard Community')
+@section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Home - Yogyakarta Fingerboard Community')
 @section('meta_tags')
     <meta name="robots" content="index,follow" />
     <meta name="title" content="{{ blogInfo()->blog_name }}" />
