@@ -7,6 +7,7 @@ use App\Models\Community;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\DB;
 
 if (!function_exists('blogInfo')) {
     function blogInfo()
@@ -244,5 +245,51 @@ if (!function_exists('all_tags')) {
     function all_tags()
     {
         return Post::where('post_tags', '!=', null)->distinct()->pluck('post_tags')->join(',');
+    }
+}
+
+
+/**
+ * Display Home latest post each category article by limit and skip 1 post
+ */
+if (!function_exists('latest_home_posts_per_category_skip_1')) {
+    function latest_home_posts_per_category_skip_1($category, $limit)
+    {
+        $getPost = DB::table('posts as p')
+            ->leftJoin('sub_categories as sc', 'sc.id', '=', 'p.category_id')
+            ->leftJoin('categories as c', 'c.id', '=', 'sc.parent_category')
+            ->where('c.id', $category)
+            ->select('p.*')
+            ->orderBy('p.created_at', 'desc')
+            ->limit($limit)
+            ->skip(1)
+            ->get();
+        return $getPost;
+        // return Post::with('author')
+        //     ->with('subcategory')
+        //     ->where('category_id', $category)
+        //     ->skip(1)
+        //     ->limit($limit)
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
+    }
+}
+
+
+/**
+ * Display Home latest post each category article by limit and skip 1 post
+ */
+if (!function_exists('all_latest_home_posts_per_category')) {
+    function all_latest_home_posts_per_category($category, $limit)
+    {
+        $getPost = DB::table('posts as p')
+            ->leftJoin('sub_categories as sc', 'sc.id', '=', 'p.category_id')
+            ->leftJoin('categories as c', 'c.id', '=', 'sc.parent_category')
+            ->where('c.id', $category)
+            ->select('p.*')
+            ->orderBy('p.created_at', 'desc')
+            ->limit($limit)
+            ->get();
+        return $getPost;
     }
 }

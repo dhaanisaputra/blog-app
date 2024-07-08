@@ -162,7 +162,6 @@
                 <!-- Trending Section -->
                 @if (recomended_posts())
                     <div class="col-lg-12">
-
                         <div class="trending">
                             <h3>Trending</h3>
                             @foreach (recomended_of_posts(5) as $item)
@@ -179,13 +178,10 @@
                                 </ul>
                             @endforeach
                         </div>
-
                     </div>
                     <!-- End Trending Section -->
-
                 @endif
             </div>
-
         </div> <!-- End .row -->
     </section>
 
@@ -200,17 +196,30 @@
             <div class="container" data-aos="fade-up">
                 <div class="section-header d-flex justify-content-between align-items-center mb-5">
                     <h2>{{ $category->category_name }}</h2>
-                    <div><a href="{{ route('category_posts', $subcategory->slug) }}" class="more"></a></div>
+                    <div><a href="{{ route('category_posts', $subcategory->slug) }}" class="more">See all</a></div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-9">
                         @php
-                            $getSubCateg = App\Models\SubCategory::where('parent_category', $category->id)
-                                ->whereHas('posts')
+                            // $getSubCateg = App\Models\SubCategory::where('parent_category', $category->id)
+                            //     ->whereHas('posts')
+                            //     ->first();
+                            // $getPost = App\Models\Post::where('category_id', $getSubCateg->id)
+                            //     ->orderBy('created_at', 'desc')
+                            //     ->first();
+                            /**
+                             * get latest post by category id
+                             */
+                            $getPost = DB::table('posts as p')
+                                ->leftJoin('sub_categories as sc', 'sc.id', '=', 'p.category_id')
+                                ->leftJoin('categories as c', 'c.id', '=', 'sc.parent_category')
+                                ->where('c.id', $category->id)
+                                ->select('p.*')
+                                ->orderBy('p.created_at', 'desc')
                                 ->first();
-                            $getPost = App\Models\Post::where('category_id', $getSubCateg->id)
-                                ->orderBy('created_at', 'desc')
+                            $getSubCateg = App\Models\SubCategory::where('id', $getPost->category_id)
+                                ->whereHas('posts')
                                 ->first();
                         @endphp
                         <div class="d-lg-flex post-entry-2">
@@ -220,7 +229,9 @@
                                     alt="Post Thumbnail" class="img-fluid">
                             </a>
                             <div>
-                                <div class="post-meta"><span class="date">{{ $getSubCateg->subcategory_name }}</span>
+                                <div class="post-meta"><span class="date">
+                                        {{ $getSubCateg->subcategory_name }}
+                                    </span>
                                     <span class="mx-1">&bullet;</span>
                                     <span>{{ date_formatter($getPost->created_at) }}</span>
                                 </div>
@@ -233,15 +244,46 @@
                                             href="{{ route('read_post', $getPost->post_slug) }}">Baca
                                             Selengkapnya</a>
                                     </div>
-                                    {{-- <div class="name">
-                                        <h3 class="m-0 p-0">Wade Warren</h3>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-12">
+                                <div class="row g-5">
+                                    @php
+                                        $getSubCateg = App\Models\SubCategory::where('parent_category', $category->id)
+                                            ->whereHas('posts')
+                                            ->first();
+                                    @endphp
+                                    @foreach (latest_home_posts_per_category_skip_1($category->id, 9) as $item)
+                                        <div class="col-lg-4 border-start custom-border">
+                                            @php
+                                                $subcategory = App\Models\SubCategory::where(
+                                                    'id',
+                                                    $item->category_id,
+                                                )->first();
+                                            @endphp
+                                            <div class="post-entry-2">
+                                                <a href="{{ route('read_post', $item->post_slug) }}" class="logo"><img
+                                                        src="{{ asset('back/dist/img/posts-upload/thumbnails/resized_' . $item->featured_image) }}"
+                                                        alt="Post Thumbnail" class="img-fluid mb-3"></a>
+                                                <div class="post-meta"><span class="date">
+                                                        {{ $subcategory->subcategory_name }}
+                                                    </span>
+                                                    <span class="mx-1">&bullet;</span>
+                                                    <span>{{ date_formatter($item->created_at) }}</span>
+                                                </div>
+                                                <h2><a
+                                                        href="{{ route('read_post', $item->post_slug) }}">{{ $item->post_title }}</a>
+                                                </h2>
+                                                <p>{!! Str::ucfirst(words($item->post_content, 15)) !!}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-4">
                                 <div class="post-entry-1 border-bottom">
                                     <a href="single-post.html"><img src="back/zenblog/img/post-landscape-1.jpg"
                                             alt="" class="img-fluid"></a>
@@ -274,11 +316,11 @@
                                     <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                                         Vero temporibus repudiandae, inventore pariatur numquam cumque possimus</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         @foreach (latest_home_6_posts($getPost->category_id) as $item)
                             <div class="post-entry-1 border-bottom">
                                 <div class="post-meta"><span class="date">{{ $getSubCateg->subcategory_name }}</span>
@@ -294,7 +336,7 @@
                                 <span class="author mb-3 d-block">{{ $getAuthor->name }}</span>
                             </div>
                         @endforeach
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
