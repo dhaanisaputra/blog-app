@@ -17,7 +17,7 @@
                         class="img-fluid">
                 </a>
                 <div class="ps-md-5 mt-4 mt-md-0">
-                    <div class="post-meta mt-4">About us</div>
+                    <div class="post-meta mt-2"></div>
                     <h2 class="mb-4 display-4">Yogyakarta Fingerboard Community History</h2>
 
                     <p style="text-align: justify">Bisa dibilang kita mulai exist sekitar tahun 2009. Yang mendasari
@@ -31,7 +31,7 @@
                         juga membantu <em>fingerboarder</em> baru yang ingin tahu lebih dalam tentang
                         <em>fingerboard</em>
                         ataupun ingin
-                        menjalin relasi pertemanan sesama <em>fingerboarder</em>
+                        menjalin relasi pertemanan sesama <em>fingerboarder</em>.
                     </p>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <img src="{{ url('/back/dist/img/img-slider/ykfb-oak.jpg') }}" alt="" class="img-fluid">
                 </a>
                 <div class="pe-md-5 mt-4 mt-md-0">
-                    <div class="post-meta mt-4">Mission &amp; Vision</div>
+                    <div class="post-meta mt-0"></div>
                     <h2 class="mb-4 display-4">Mission &amp; Vision</h2>
 
                     <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit.

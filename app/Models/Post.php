@@ -18,6 +18,9 @@ class Post extends Model
         'post_slug',
         'post_content',
         'featured_image',
+        // 'count_view',
+        'status',
+        'reads',
     ];
 
     public function scopeSearch($query, $term)
@@ -56,5 +59,11 @@ class Post extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id', 'id');
+    }
+
+    public function incrementReadCount()
+    {
+        $this->reads++;
+        return $this->save();
     }
 }

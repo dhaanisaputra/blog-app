@@ -8,6 +8,7 @@ use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('blogInfo')) {
     function blogInfo()
@@ -312,5 +313,43 @@ if (!function_exists('random_home_posts_per_category')) {
             ->skip(1)
             ->get();
         return $getPost;
+    }
+}
+
+/**
+ * update counter view article
+ */
+if (!function_exists('update_view_counter')) {
+    function update_view_counter($post_slug)
+    {
+        $post = Post::where('post_slug', $post_slug)->first();
+        Log::info('Incrementing count_view for post with slug: ' . $post_slug);
+        $post->reads = $post->reads + 1;
+        $post->save();
+        // return 'function run ' . $post;
+        // $posts = Post::where('id', $id)->increment('count_view', 1);
+        // $posts = Post::where('id', $id)->update([
+        //     'count_view' => DB::raw('count_view+1')
+        // ]);
+        // $update = Post::where('id', $id)->update([
+        //     'count_view' => DB::raw('count_view + 1'),
+        // ]);
+        // $post->increment('count_view');
+        // $post->save();
+        // $counter = $post->count_view;
+        // if (empty($counter)) {
+        //     $counter = 0;
+        // }
+        // $updateCounter = ['count_view' => $counter + 1,];
+        // $update = Post::where('id', $post->id)->update($updateCounter);
+        // $post->count_view = $post->count_view + 1;
+        // $post->save();
+        // $countView = 0;
+        // if ($update) {
+        //     $post = Post::where('id', $id)->first();
+        //     $countView = $post->count_view;
+        // }
+        // return $countView;
+        return $post;
     }
 }
