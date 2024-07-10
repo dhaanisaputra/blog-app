@@ -15,6 +15,7 @@ class AllCommunity extends Component
     public $author = null;
     public $category = null;
     public $orderBy = null;
+    public $status = null;
     public $selected_community_id;
 
     public function mount()
@@ -71,6 +72,9 @@ class AllCommunity extends Component
             'comunities' => Community::search(trim($this->search))
                 ->when($this->author, function ($query) {
                     $query->where('author_id', $this->author);
+                })
+                ->when(isset($this->status), function ($query) {
+                    $query->where('status_community', $this->status);
                 })
                 ->when($this->orderBy, function ($query) {
                     $query->orderBy('communities_title', $this->orderBy);

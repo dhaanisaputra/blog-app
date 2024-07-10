@@ -30,6 +30,12 @@
             <input type="text" class="form-control" placeholder="Keyword..." wire:model.live='search'>
         </div>
         <div class="col-md-2 mb3">
+            <label for="" class="form-label">Status</label>
+            <select class="form-select" wire:model.live='status'>
+                <option value="">-- No Selected --</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+            </select>
         </div>
         @if (auth()->user()->type == 1)
             <div class="col-md-2 mb3">
