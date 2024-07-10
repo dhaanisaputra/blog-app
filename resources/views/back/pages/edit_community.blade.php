@@ -69,6 +69,39 @@
                                     alt="" class="img-fluid mt-2 img-thumbnail" id="imagePreviewImg">
                             </div>
                         </div>
+                        {{-- <div class="mb-3">
+                            <div class="form-label">Is Active?</div>
+                            <div>
+                                <label class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_community" value="0"
+                                        {{ $post->status_community == '0' ? 'checked' : '' }}>
+                                    <span class="form-check-label">No</span>
+                                </label>
+                                <label class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_community" value="1"
+                                        {{ $post->status_community == '1' ? 'checked' : '' }}>
+                                    <span class="form-check-label">Yes</span>
+                                </label>
+                            </div>
+                            <span class="text-danger">
+                                @error('status_community')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </div> --}}
+                        <div class="mb-3">
+                            <div class="form-label">Status</div>
+                            <label class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="status_community" value="1"
+                                    {{ $post->status_community == '1' ? 'checked' : '' }}>
+                                <span class="form-check-label">Is Active?</span>
+                            </label>
+                            <span class="text-danger">
+                                @error('status_community')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </div>
                         <button type="submit" class="btn btn-primary">Save Post</button>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ class Community extends Model
         'post_slug',
         'post_content',
         'featured_image',
+        'status_community',
     ];
 
     /**

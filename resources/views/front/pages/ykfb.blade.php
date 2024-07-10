@@ -159,7 +159,7 @@
                 @if (recomended_posts())
                     <div class="col-lg-12">
                         <div class="trending">
-                            <h3>Trending</h3>
+                            <h3>Suggestions Article</h3>
                             @foreach (recomended_of_posts(5) as $item)
                                 <ul class="trending-post">
                                     <li>

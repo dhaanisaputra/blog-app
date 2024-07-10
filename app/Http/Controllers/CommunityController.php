@@ -12,11 +12,13 @@ class CommunityController extends Controller
 {
     public function createCommunity(Request $request)
     {
+        // return $request;
         $request->validate([
             'communities_title' => 'required|unique:communities,communities_title',
             'post_content' => 'required',
             'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
             'url_social_media' => 'nullable|url',
+            'status_community' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('featured_image')) {
@@ -49,7 +51,7 @@ class CommunityController extends Controller
             $postCommunity->post_content = $request->post_content;
             $postCommunity->featured_image = $new_filename;
             $postCommunity->url_social_media = $request->url_social_media;
-
+            $postCommunity->status_community = $request->has('status_community') ? 1 : 0;
             $saved = $postCommunity->save();
 
             if ($saved) {
@@ -82,7 +84,12 @@ class CommunityController extends Controller
                 'post_content' => 'required',
                 'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
                 'url_social_media' => 'nullable|url',
+                // 'status_community' => 'required',
+                'status_community' => 'nullable|boolean',
             ]);
+            // , [
+            //     'status_community.required' => 'Specify status publication'
+            // ]);
 
             $path = 'back/dist/img/community-upload/';
             $file = $request->file('featured_image');
@@ -129,6 +136,8 @@ class CommunityController extends Controller
             $communityPost->post_content = $request->post_content;
             $communityPost->communities_title = $request->communities_title;
             $communityPost->url_social_media = $request->url_social_media;
+            // $communityPost->status_community = $request->status_community;
+            $communityPost->status_community = $request->has('status_community') ? 1 : 0;
             $communityPost->featured_image = $new_filename;
             $saved = $communityPost->save();
 
@@ -149,6 +158,8 @@ class CommunityController extends Controller
             $post->post_content = $request->post_content;
             $post->communities_title = $request->communities_title;
             $post->url_social_media = $request->url_social_media;
+            // $post->status_community = $request->status_community;
+            $post->status_community = $request->has('status_community') ? 1 : 0;
             $saved = $post->save();
             if ($saved) {
                 return redirect()->route('author.posts.all-community')->with('message', "Community updated successfully");

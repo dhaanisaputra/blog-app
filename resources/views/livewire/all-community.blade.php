@@ -64,6 +64,7 @@
                             <th>Description</th>
                             <th>Social Media Url</th>
                             <th>Author</th>
+                            <th>Status</th>
                             <th class="w-1"></th>
                         </tr>
                     </thead>
@@ -84,6 +85,8 @@
                                     @foreach ($getAuthor as $author)
                                         <option value="{{ $author->id }}">{{ $author->name }}</option>
                                     @endforeach
+                                </td>
+                                <td class="text-muted">{{ $community->status_community == '0' ? 'Inactive' : 'Active' }}
                                 </td>
                                 <td>
                                     <div class="btn-list flex-nowrap">
