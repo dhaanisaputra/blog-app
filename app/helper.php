@@ -211,6 +211,22 @@ if (!function_exists('latest_home_6_posts')) {
 }
 
 /**
+ * Display Home 6 latest post article by category except that id
+ */
+if (!function_exists('latest_home_6_posts_with_except_id')) {
+    function latest_home_6_posts_with_except_id($category, $id)
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->where('category_id', $category)
+            ->where('id', '!=', $id)
+            ->limit(6)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+}
+
+/**
  * Display Home latest post article by param
  */
 if (!function_exists('latest_all_of_posts')) {
@@ -224,14 +240,30 @@ if (!function_exists('latest_all_of_posts')) {
     }
 }
 
+/**
+ * Display top 5 most views article
+ */
+if (!function_exists('top_5_posts')) {
+    function top_5_posts()
+    {
+        return Post::with('author')
+            ->with('subcategory')
+            ->limit(5)
+            ->orderBy('reads', 'desc')
+            ->get();
+    }
+}
+
 
 /**
  * Display Home 6 latest post article by category
  */
 if (!function_exists('latest_community_6_posts')) {
-    function latest_community_6_posts($limit)
+    function latest_community_6_posts($id, $limit)
     {
         return Community::with('author')
+            ->where('status_community', 1)
+            ->where('id', '!=', $id)
             ->skip(1)
             ->limit($limit)
             ->orderBy('created_at', 'desc')
@@ -324,7 +356,8 @@ if (!function_exists('update_view_counter')) {
     {
         $post = Post::where('post_slug', $post_slug)->first();
         Log::info('Incrementing count_view for post with slug: ' . $post_slug);
-        $post->reads = $post->reads + 1;
+        $post->increment('reads');
+        // $post->reads = $post->reads + 1;
         $post->save();
         // return 'function run ' . $post;
         // $posts = Post::where('id', $id)->increment('count_view', 1);

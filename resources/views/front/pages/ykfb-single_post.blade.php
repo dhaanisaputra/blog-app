@@ -29,7 +29,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9 post-content aos-init aos-animate" data-aos="fade-up">
-
+                    @php
+                        update_view_counter($posts->post_slug);
+                    @endphp
                     <!-- ======= Single Post Content ======= -->
                     <div class="single-post">
                         <div class="post-meta"><span class="date">{{ $subcategory->subcategory_name }}</span> <span
@@ -221,7 +223,7 @@
                                     ->first();
                             @endphp
                             <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
-                                @foreach (latest_home_6_posts($getSubCateg->id) as $item)
+                                @foreach (latest_home_6_posts_with_except_id($getSubCateg->id, $posts->id) as $item)
                                     <div class="post-entry-1 border-bottom">
                                         <div class="post-meta"><span
                                                 class="date">{{ $getSubCateg->subcategory_name }}</span> <span

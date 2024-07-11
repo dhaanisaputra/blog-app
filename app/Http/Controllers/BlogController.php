@@ -92,7 +92,7 @@ class BlogController extends Controller
                 'posts' => $post,
                 'related_posts' => $related_post
             ];
-
+            // $post->increment('reads');
             // return view('front.pages.single_post', $data);
             return view('front.pages.ykfb-single_post', $data);
         }

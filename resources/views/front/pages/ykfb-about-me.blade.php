@@ -44,16 +44,22 @@
                     <div class="post-meta mt-0"></div>
                     <h2 class="mb-4 display-4">Mission &amp; Vision</h2>
 
-                    <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Facilis, perspiciatis repellat
-                        maxime, adipisci non ipsam at itaque rerum vitae, necessitatibus nulla animi expedita cumque
-                        provident inventore? Voluptatum in tempora earum deleniti, culpa odit veniam, ea reiciendis
-                        sunt ullam temporibus aut!</p>
-                    <p style="text-align: justify">Fugit eaque illum blanditiis, quo exercitationem maiores autem
-                        laudantium unde excepturi
-                        dolores quasi eos vero harum ipsa quam laborum illo aut facere voluptates aliquam adipisci
-                        sapiente beatae ullam. Tempora culpa iusto illum accusantium cum hic quisquam dolor placeat
-                        officiis eligendi.</p>
+                    <p style="text-align: justify"><em>Fingerboard</em> saat ini merupakan salah satu hobi yang tidak
+                        mengenal
+                        batasan usia dalam memainkannya. Demi membangun konsistensi dan eksistensi dalam skena
+                        <em>fingerboard</em>
+                        di Indonesia, Yogyakarta Fingerboard Community dibentuk untuk menjadi wadah bagi
+                        <em>fingerboarder</em>
+                        yogyakarta.
+                    </p>
+                    <p style="text-align: justify">Menjadi wadah yang supportif untuk <em>fingerboarder</em> yogyakarta
+                        tentu menjadi
+                        tujuan kami.
+                        Dengan adanya kegiatan "meet up" kami berbagi ilmu dengan teman-teman, baik berbagi informasi
+                        seputar <em>fingerboard</em> ataupun berbagi tips & trick dalam bermain <em>fingerboard</em>. Kami
+                        senang jika
+                        regenerasi
+                        terus berjalan.</p>
                 </div>
             </div>
 

@@ -28,17 +28,19 @@
                 <div class="col-md-9 post-content aos-init aos-animate" data-aos="fade-up">
                     <!-- ======= Single Post Content ======= -->
                     <div class="single-post">
-                        <div class="post-meta"><span class="date"></span> <span class="mx-1">•</span>
+                        <div class="post-meta"><span class="date"></span>
                             <span>{{ date_formatter($posts->created_at) }}</span>
                         </div>
                         <h1 class="mb-5">{{ $posts->communities_title }}</h1>
-                        <img src="{{ asset('back/dist/img/community-upload/thumbnails/resized_' . $posts->featured_image) }}"
-                            alt="Post Thumbnail" class="img-fluid mb-1 img-thumbnail border-0">
-                        <p>{!! $posts->post_content !!}</p>
+                        <img src="{{ asset('back/dist/img/community-upload/thumbnails/thumb_' . $posts->featured_image) }}"
+                            alt="Post Thumbnail" class="img-fluid mb-1 img-thumbnail border-0"
+                            style="float: left; margin: 0 25px 12px 0;">
+                        <div style="text-align: justify">{!! $posts->post_content !!}</div>
                         @if ($posts->url_social_media != null)
-                            Follow our <a class="link" href="{{ $posts->url_social_media }}" target="_blank"
-                                style="text-decoration:
-                                underline;">Instagram</a>
+                            <h5>Jangan lupa follow <a class="link" href="{{ $posts->url_social_media }}" target="_blank"
+                                    style="text-decoration:
+                                underline;">instagram</a> kami.
+                            </h5>
                         @endif
                     </div>
                     <!-- End Single Post Content -->
@@ -155,7 +157,7 @@
                     <div class="aside-block">
                         <h3 class="aside-title">Latest</h3>
                         <ul class="aside-links list-unstyled">
-                            @foreach (latest_community_6_posts(6) as $item)
+                            @foreach (latest_community_6_posts($posts->id, 6) as $item)
                                 <li><a
                                         href="{{ route('read_community', $item->post_slug) }}">{{ $item->communities_title }}</a>
                                 </li>

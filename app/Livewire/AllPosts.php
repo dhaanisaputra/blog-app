@@ -94,7 +94,10 @@ class AllPosts extends Component
                 ->when($this->category, function ($query) {
                     $query->where('category_id', $this->category);
                 })
-                ->when('author_id', auth()->id())
+                ->when(true, function ($query) {
+                    $query->where('author_id', auth()->id());
+                })
+                // ->when('author_id', auth()->id())
                 ->when($this->orderBy, function ($query) {
                     $query->orderBy('id', $this->orderBy);
                 })

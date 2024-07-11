@@ -159,8 +159,8 @@
                 @if (recomended_posts())
                     <div class="col-lg-12">
                         <div class="trending">
-                            <h3>Suggestions Article</h3>
-                            @foreach (recomended_of_posts(5) as $item)
+                            <h3>Popular Article</h3>
+                            @foreach (top_5_posts() as $item)
                                 <ul class="trending-post">
                                     <li>
                                         <a href="{{ route('read_post', $item->post_slug) }}">
@@ -168,7 +168,7 @@
                                             <h3>{{ $item->post_title }}</h3>
                                             <span
                                                 class="text-lowercase text-muted">{{ readDuration($item->post_title, $item->post_content) }}
-                                                @choice('min|mins', readDuration($item->post_title, $item->post_content)) read</span>
+                                                @choice('min|mins', readDuration($item->post_title, $item->post_content)) read | {{ $item->reads / 2 }} views</span>
                                         </a>
                                     </li>
                                 </ul>

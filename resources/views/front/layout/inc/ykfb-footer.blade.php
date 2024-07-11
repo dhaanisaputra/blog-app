@@ -9,6 +9,12 @@
                     <h3 class="footer-heading">About YkFb Blog</h3>
                     <p class="mb-4 d-block">{{ blogInfo()->blog_description }}</p>
                     {{-- <p><a href="about.html" class="footer-link-more">Learn More</a></p> --}}
+                    <div>
+                        <p style="text-align: left">Info meetup Yogyakarta Fingerboard Community</p>
+                        <p style="text-align: left">Lokasi : Barsa City Foodtruck (dekat Flyover Janti), Ngentak,
+                            Caturtunggal, Kec. Depok, Kab.
+                            Sleman, D.I. Yogyakarta </p>
+                    </div>
                 </div>
                 <div class="col-6 col-lg-2">
                     {{-- <h3 class="footer-heading">Navigation</h3>

@@ -7,7 +7,10 @@
         <div class="row">
             <div class="col-md-9 aos-init aos-animate" data-aos="fade-up">
                 <h3 class="category-title">All Community</h3>
-
+                <p style="text-align: left; margin-bottom: 30px">Di bawah ini adalah nama-nama komunitas <em>fingerboard</em>
+                    yang ada di
+                    Indonesia. Beberapa diantaranya sudah lama eksis lho. Kalian
+                    tergabung dalam komunitas mana nih <em>guys</em> ?</p>
                 @forelse ($data as $item)
                     <div class="d-md-flex post-entry-2 small-logo half">
                         <a href="{{ route('read_community', $item->post_slug) }}" class="logo">
