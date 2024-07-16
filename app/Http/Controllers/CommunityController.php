@@ -16,7 +16,7 @@ class CommunityController extends Controller
         $request->validate([
             'communities_title' => 'required|unique:communities,communities_title',
             'post_content' => 'required',
-            'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
+            'featured_image' => 'required|mimes:jpeg,jpg,png|max:3072',
             'url_social_media' => 'nullable|url',
             'status_community' => 'nullable|boolean',
         ]);
@@ -82,7 +82,7 @@ class CommunityController extends Controller
             $request->validate([
                 'communities_title' => 'required|unique:communities,communities_title,' . $request->community_id,
                 'post_content' => 'required',
-                'featured_image' => 'required|mimes:jpeg,jpg,png|max:1024',
+                'featured_image' => 'required|mimes:jpeg,jpg,png|max:3072',
                 'url_social_media' => 'nullable|url',
                 // 'status_community' => 'required',
                 'status_community' => 'nullable|boolean',
