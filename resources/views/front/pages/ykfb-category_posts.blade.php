@@ -35,7 +35,7 @@
                                         $getAuthor = App\Models\User::where('id', $item->author_id)->first();
                                     @endphp
                                     {{-- <span class="author mb-3 d-block">{{ $getAuthor->name }}</span> --}}
-                                    <h3 class="m-0 p-0">{{ $getAuthor->name }}</h3>
+                                    <h3 class="m-0 p-0">by {{ $getAuthor->name }}</h3>
                                 </div>
                             </div>
                         </div>

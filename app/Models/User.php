@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Community::class, 'author_id', 'id');
     }
+
+    public function fotyposts()
+    {
+        return $this->hasMany(Foty::class, 'author_id', 'id');
+    }
 }

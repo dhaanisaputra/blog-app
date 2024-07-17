@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Community;
+use App\Models\Foty;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -182,5 +183,19 @@ class BlogController extends Controller
                 return view('front.pages.ykfb-all_posts_by_category', $data);
             }
         }
+    }
+
+
+    public function listFoty(Request $request)
+    {
+        $perPage = 8; // Number of items per page
+        $data = Foty::where('status_foty', 1)
+            ->orderBy('year_foty', 'desc')
+            ->paginate($perPage);
+
+        // If you want to preserve query parameters, use appends
+        $data->appends($request->all());
+        // return $data;
+        return view('front.pages.ykfb-foty-idn', compact('data'));
     }
 }

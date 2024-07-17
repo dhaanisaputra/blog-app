@@ -1,20 +1,18 @@
 @extends('back.layout.pages-layout')
-@section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Edit Community')
+@section('pageTitle', @isset($pageTitle) ? $pageTitle : 'Edit FoTY')
 @section('content')
 
     <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <h2 class="page-title">
-                        Edit Community
-                    </h2>
-                </div>
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">
+                    Edit FoTY
+                </h2>
             </div>
         </div>
     </div>
-    <form action="{{ route('author.posts.update-community', ['community_id' => Request('community_id')]) }}" method="POST"
-        id='editPostCommunitiyForm' enctype="multipart/form-data">
+    <form action="{{ route('author.posts.update-foty', ['foty_id' => Request('foty_id')]) }}" method="POST"
+        id='editPostFotyForm' enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card-body">
@@ -24,17 +22,17 @@
                     @endif
                     <div class="col-md-9">
                         <div class="mb-3">
-                            <label class="form-label">Community Title</label>
-                            <input type="text" class="form-control" name="communities_title"
-                                placeholder="Enter post title" value="{{ $post->communities_title }}">
+                            <label class="form-label">Name Fingerboarder of The Year</label>
+                            <input type="text" class="form-control" name="name_foty" placeholder="Enter name"
+                                value="{{ $post->name_foty }}">
                             <span class="text-danger">
-                                @error('communities_title')
+                                @error('name_foty')
                                     {{ $message }}
                                 @enderror
                             </span>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Community Description</label>
+                            <label class="form-label">FoTY Description</label>
                             <textarea class="ckeditor form-control" id="desc_post" name="post_content" rows="6" placeholder="Content..">{!! $post->post_content !!}</textarea>
                             <span class="text-danger">
                                 @error('post_content')
@@ -44,6 +42,12 @@
                         </div>
                     </div>
                     <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Year</label>
+                            <select id="yearDropdown" name="year_foty" class="form-select"></select>
+                            {{-- <option value="{{ $post->year_foty }}" selected>{{ $post->year_foty }}</option> --}}
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label">Url Social Media</label>
                             <input type="text" class="form-control" name="url_social_media" placeholder="Enter url"
@@ -65,39 +69,19 @@
                                 @enderror
                             </span>
                             <div class="image-preview" id="imagePreview">
-                                <img src="{{ asset('back/dist/img/community-upload/thumbnails/resized_' . $post->featured_image) }}"
+                                <img src="{{ asset('back/dist/img/foty-upload/thumbnails/resized_' . $post->featured_image) }}"
                                     alt="" class="img-fluid mt-2 img-thumbnail" id="imagePreviewImg">
                             </div>
                         </div>
-                        {{-- <div class="mb-3">
-                            <div class="form-label">Is Active?</div>
-                            <div>
-                                <label class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status_community" value="0"
-                                        {{ $post->status_community == '0' ? 'checked' : '' }}>
-                                    <span class="form-check-label">No</span>
-                                </label>
-                                <label class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status_community" value="1"
-                                        {{ $post->status_community == '1' ? 'checked' : '' }}>
-                                    <span class="form-check-label">Yes</span>
-                                </label>
-                            </div>
-                            <span class="text-danger">
-                                @error('status_community')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                        </div> --}}
                         <div class="mb-3">
                             <div class="form-label">Status</div>
                             <label class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="status_community" value="1"
-                                    {{ $post->status_community == '1' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="status_foty" value="1"
+                                    {{ $post->status_foty == '1' ? 'checked' : '' }}>
                                 <span class="form-check-label">Is Active?</span>
                             </label>
                             <span class="text-danger">
-                                @error('status_community')
+                                @error('status_foty')
                                     {{ $message }}
                                 @enderror
                             </span>
@@ -108,7 +92,9 @@
             </div>
         </div>
     </form>
+
 @endsection
+
 @push('scripts')
     {{-- --- ckeditor --- --}}
     <script>
@@ -133,6 +119,32 @@
                 }
             }
             reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+    <script>
+        // Get the current year
+        const currentYear = new Date().getFullYear();
+
+        // Define the range
+        const startYear = 2020;
+        const endYear = currentYear + 1;
+
+        // Get the dropdown element
+        const dropdown = document.getElementById('yearDropdown');
+
+        // The year from the database
+        const selectedYear = {{ $post->year_foty }};
+
+        // Populate the dropdown with the year range
+        for (let year = startYear; year <= endYear; year++) {
+            const option = document.createElement('option');
+            option.value = year;
+            option.text = year;
+            if (year === selectedYear) {
+                option.selected = true; // Set the current year as selected
+            }
+            dropdown.add(option);
         }
     </script>
 @endpush

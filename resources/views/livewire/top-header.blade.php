@@ -252,6 +252,28 @@
                                 </div>
                         </li>
 
+                        @if (auth()->user()->type == 1)
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" role="button" aria-expanded="false">
+                                    <span class="nav-link-title">
+                                        FoTY
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu-columns">
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item" href="{{ route('author.posts.add-foty') }}">
+                                                Add FoTY
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('author.posts.all-foty') }}">
+                                                All FoTY
+                                            </a>
+                                        </div>
+                                    </div>
+                            </li>
+                        @endif
+
                         {{-- @if (auth()->user()->type == 1)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >

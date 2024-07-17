@@ -41,6 +41,9 @@
                 <li class="nav-item"> <a class="nav-link" href="{{ route('community') }}">Komunitas</a>
                 </li>
 
+                <li class="nav-item"> <a class="nav-link" href="{{ route('foty-idn') }}">FoTY</a>
+                </li>
+
                 <li><a href="{{ route('about-me') }}">About</a></li>
                 {{-- <li><a href="contact.html">Contact</a></li> --}}
             </ul>

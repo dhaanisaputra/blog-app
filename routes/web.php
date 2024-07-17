@@ -53,6 +53,12 @@ Route::prefix('author')->name('author.')->group(function () {
             Route::view('/all-community', 'back.pages.all-community')->name('all-community');
             Route::get('/edit-community', [CommunityController::class, 'editCommunity'])->name('edit-community');
             Route::post('/update-community', [CommunityController::class, 'updateCommunity'])->name('update-community');
+
+            Route::view('/add-foty', 'back.pages.add-foty')->name('add-foty');
+            Route::post('/create-foty', [CommunityController::class, 'createFoty'])->name('create-foty');
+            Route::view('/all-foty', 'back.pages.all-foty')->name('all-foty');
+            Route::get('/edit-foty', [CommunityController::class, 'editFoty'])->name('edit-foty');
+            Route::post('/update-foty', [CommunityController::class, 'updateFoty'])->name('update-foty');
         });
     });
 });
@@ -68,5 +74,6 @@ Route::get('/search', [BlogController::class, 'searchBlog'])->name('search_posts
 
 Route::view('/about-me', 'front.pages.ykfb-about-me')->name('about-me');
 Route::get('/community', [BlogController::class, 'listCommunity'])->name('community');
-// Route::view('/community', 'front.pages.ykfb-community')->name('community');
 Route::get('/community/{any}', [BlogController::class, 'readCommunity'])->name('read_community');
+// Route::view('/community', 'front.pages.ykfb-community')->name('community');
+Route::get('/foty-idn', [BlogController::class, 'listFoty'])->name('foty-idn');
