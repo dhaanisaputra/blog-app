@@ -82,7 +82,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script> | Designed &amp; Developed By <a
-                            href="/ykfb-new">{{ blogInfo()->blog_name }}</a>
+                            href="/ykfb-home">{{ blogInfo()->blog_name }}</a>
                     </div>
 
                 </div>

@@ -58,7 +58,7 @@ Route::prefix('author')->name('author.')->group(function () {
 });
 
 Route::view('/ykfb', 'front.pages.home');
-Route::view('/ykfb-new', 'front.pages.ykfb');
+Route::view('/ykfb-home', 'front.pages.ykfb');
 
 Route::get('/article/{any}', [BlogController::class, 'readPost'])->name('read_post');
 Route::get('/category/{any}', [BlogController::class, 'categoryPost'])->name('category_posts');

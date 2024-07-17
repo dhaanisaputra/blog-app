@@ -2,7 +2,7 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-        <a href="/ykfb-new" class="logo d-flex align-items-center">
+        <a href="/ykfb-home" class="logo d-flex align-items-center">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <!-- <img src="back/zenblog/img/logo.png" alt=""> -->
             <img loading="prelaod" decoding="async" class="img-fluid"
