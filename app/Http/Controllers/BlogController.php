@@ -148,7 +148,9 @@ class BlogController extends Controller
     public function listCommunity(Request $request)
     {
         $perPage = 8; // Number of items per page
-        $data = Community::where('status_community', 1)->paginate($perPage);
+        $data = Community::where('status_community', 1)
+            ->orderBy('communities_title', 'asc')
+            ->paginate($perPage);
 
         // If you want to preserve query parameters, use appends
         $data->appends($request->all());
