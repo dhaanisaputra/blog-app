@@ -11,7 +11,8 @@
                             <h2 class="display-4">Fingerboarder of The Year Indonesia</h2>
                             <p>Fingerboarder of The Year (FoTY) Indonesia adalah penghargaan tahunan dari Papanjari
                                 Indonesia untuk fingerboarder Indonesia terpilih.
-                                Pemilihan dilakukan dengan cara voting pada akhir tahun.
+                                Pemilihan dilakukan dengan cara voting pada akhir tahun melalui akun instagram Papanjari
+                                Official.
                             </p>
                         </div>
                     </div>
