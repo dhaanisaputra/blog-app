@@ -5,7 +5,7 @@
     <div class="container aos-init aos-animate" data-aos="fade-up">
         <div class="row">
             <div class="col-lg-12 text-center mb-2">
-                <h1 class="page-title">About us</h1>
+                <h1 class="page-title">About us.</h1>
             </div>
         </div>
 
